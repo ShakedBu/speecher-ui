@@ -48,10 +48,9 @@ function TopBar() {
           <IconButton
             edge="end"
             aria-label="group"
-            aria-haspopup="true"
+            aria-labelledby="customized-dialog-title"
             //TODO: add group popup
-            onClick={openGroup}
-            color="inherit">
+            onClick={openGroup}>
             <TocIcon />
           </IconButton>
           <GroupPage open={gourpOpen} handleClose={closeGroup} />
