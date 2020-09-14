@@ -42,7 +42,7 @@ function SearchPage() {
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
-                <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                <IconButton type="search" className={classes.iconButton} aria-label="search" onClick={console.log("hi")}>
                     <SearchIcon />
                 </IconButton>
             </Paper>
