@@ -8,6 +8,7 @@ import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import TocIcon from '@material-ui/icons/Toc';
 import GroupPage from '../GroupPage/GroupPage';
 import PhrasePage from '../PhrasePage/PhrasePage';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -45,24 +46,28 @@ function TopBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             SPEECHER
           </Typography>
-          <IconButton
-            edge="end"
-            aria-label="group"
-            aria-labelledby="customized-dialog-title"
-            //TODO: add group popup
-            onClick={openGroup}>
-            <TocIcon />
-          </IconButton>
+          <Tooltip title="Group" aria-label="group">
+            <IconButton
+              edge="end"
+              aria-label="group"
+              aria-labelledby="customized-dialog-title"
+              //TODO: add group popup
+              onClick={openGroup}>
+              <TocIcon />
+            </IconButton>
+          </Tooltip>
           <GroupPage open={gourpOpen} handleClose={closeGroup} />
-          <IconButton
-            edge="end"
-            aria-label="phrase"
-            aria-haspopup="true"
-            //TODO: add phrase Popup
-            onClick={openPhrase}
-            color="inherit">
-            <FormatQuoteIcon />
-          </IconButton>
+          <Tooltip title="Phrase" aria-label="phrase">
+            <IconButton
+              edge="end"
+              aria-label="phrase"
+              aria-haspopup="true"
+              //TODO: add phrase Popup
+              onClick={openPhrase}
+              color="inherit">
+              <FormatQuoteIcon />
+            </IconButton>
+          </Tooltip>
           <PhrasePage open={phraseOpen} handleClose={closePhrase} />
         </Toolbar>
       </AppBar>
