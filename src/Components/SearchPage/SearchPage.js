@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import SearchReaults from './SearchResults';
+import { searchSpeeches } from '../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,9 +32,18 @@ const useStyles = makeStyles((theme) => ({
 function SearchPage() {
     const classes = useStyles();
     const [query, setQuery] = useState(null);
+    const [results, setResults] = useState(null);
 
+    const searchSpeech = (query) => {
+        searchSpeeches(query).then((response) => {
+            setResults(response)
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+    
     return (
-        <div >
+        <div>
             <Paper component="form" className={classes.root} elevation={3}>
                 <InputBase
                     className={classes.input}
@@ -42,12 +51,12 @@ function SearchPage() {
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
-                <IconButton type="search" className={classes.iconButton} aria-label="search" onClick={console.log("hi")}>
+                <Button type="search" className={classes.iconButton} aria-label="search" onClick={() => searchSpeech(query)}>
                     <SearchIcon />
-                </IconButton>
+                </Button>
             </Paper>
             <Divider variant="middle" />
-            <SearchReaults query={query} />
+            <SearchReaults SearchResults={results} />
         </div>
     );
 }

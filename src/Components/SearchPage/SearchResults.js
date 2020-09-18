@@ -19,17 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchResults(props) {
   const classes = useStyles();
-  const [results, setResults] = useState(null);
 
   return (
     <div>
       <Typography variant="subtitle2" component="h6" align="left">
-        {props.SearchReesults ? props.SearchReesults.length : 0} speeches found
+        {props.SearchResults ? props.SearchResults.length : 0} speeches found
       </Typography>
-      {props.query}
-
       <List className={classes.root}>
-        {results && results.map(x =>
+        {props.SearchResults && props.SearchResults.map(x =>
           <ListItem>
             <ListItemText
               primary={x.SpeechName}
