@@ -43,3 +43,13 @@ export const getSpeech = (id) => {
         "speech_id": "19"
     });
 }
+
+export const searchWordInSpeech = (speechId, word) => { };
+
+export const getWordsListFromSpeech = (speechId) => { };
+
+export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
+
+export const createGroup = (groupName, words) => { };
+
+export const createPhrase = (words) => { };
