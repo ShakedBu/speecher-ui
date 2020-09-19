@@ -56,7 +56,7 @@ function SearchPage() {
                 </Button>
             </Paper>
             <Divider variant="middle" />
-            <SearchReaults SearchResults={results} />
+            <SearchReaults searchResults={results} query={query} />
         </div>
     );
 }

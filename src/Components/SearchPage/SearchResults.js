@@ -24,10 +24,10 @@ function SearchResults(props) {
   return (
     <div>
       <Typography variant="subtitle2" component="h6" align="left">
-        {props.SearchResults ? props.SearchResults.length : 0} speeches found
+        {props.searchResults ? props.searchResults.length : 0} speeches found
       </Typography>
       <List className={classes.root}>
-        {props.SearchResults && props.SearchResults.map(x =>
+        {props.searchResults && props.searchResults.map(x =>
           <Link to={"/speech/" + x.id}>
             <ListItem>
               <ListItemText
@@ -42,14 +42,18 @@ function SearchResults(props) {
                     >
                       {x.speaker} | {x.location}
                     </Typography>
-                    {x.text}
+                    {(() => {
+                      // Bold the searched word in the returned text
+                      var text = x.text.split(props.query);
+                      return (text.map((x, idx) => idx !== text.length - 1 ? <><span>{x}</span><b>{props.query}</b></> : <span>{x}</span>))
+                    })()}
                   </React.Fragment>
                 } />
             </ListItem>
           </Link>)
         }
       </List>
-    </div>
+    </div >
   );
 }
 
