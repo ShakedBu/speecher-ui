@@ -29,7 +29,7 @@ function SearchResults(props) {
         {props.SearchResults && props.SearchResults.map(x =>
           <ListItem>
             <ListItemText
-              primary={x.SpeechName}
+              primary={x.name}
               secondary={
                 <React.Fragment>
                   <Typography
@@ -38,9 +38,9 @@ function SearchResults(props) {
                     className={classes.inline}
                     color="textPrimary"
                   >
-                    {x.Speaker} | {x.Location}
+                    {x.speaker} | {x.location}
                   </Typography>
-                  {x.Text}
+                  {x.text}
                 </React.Fragment>
               } />
           </ListItem>)

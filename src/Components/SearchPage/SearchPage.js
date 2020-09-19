@@ -31,12 +31,12 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPage() {
     const classes = useStyles();
-    const [query, setQuery] = useState(null);
+    const [query, setQuery] = useState("");
     const [results, setResults] = useState(null);
 
     const searchSpeech = (query) => {
         searchSpeeches(query).then((response) => {
-            setResults(response)
+            setResults(response);
         }).catch((error) => {
             console.log(error);
         });
@@ -51,7 +51,7 @@ function SearchPage() {
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
-                <Button type="search" className={classes.iconButton} aria-label="search" onClick={() => searchSpeech(query)}>
+                <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => searchSpeech(query)}>
                     <SearchIcon />
                 </Button>
             </Paper>
