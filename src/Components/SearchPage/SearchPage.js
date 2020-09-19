@@ -44,7 +44,7 @@ function SearchPage() {
     
     return (
         <div>
-            <Paper component="form" className={classes.root} elevation={3}>
+            <Paper className={classes.root} elevation={3}>
                 <InputBase
                     className={classes.input}
                     placeholder="Search..."
