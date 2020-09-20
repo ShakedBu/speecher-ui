@@ -54,8 +54,6 @@ function SearchPage() {
     const searchSpeech = (query) => {
         searchSpeeches(query).then((response) => {
             setResults(response);
-        }).catch((error) => {
-            console.log(error);
         });
     };
 

@@ -67,7 +67,6 @@ function TopBar() {
               edge="end"
               aria-label="group"
               aria-labelledby="customized-dialog-title"
-              //TODO: add group popup
               onClick={openGroup}>
               <TocIcon />
             </IconButton>
@@ -78,7 +77,6 @@ function TopBar() {
               edge="end"
               aria-label="phrase"
               aria-haspopup="true"
-              //TODO: add phrase Popup
               onClick={openPhrase}
               color="inherit">
               <FormatQuoteIcon />
@@ -90,7 +88,6 @@ function TopBar() {
               edge="end"
               aria-label="statistics"
               aria-haspopup="true"
-              //TODO: add phrase Popup
               onClick={openStatistic}
               color="inherit">
               <BarChartIcon />

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router-dom";
-import { getSpeech } from '../../Utils/SpeechUtil';
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
 import SpeechView from './SpeechView';
 import SpeechActionsTabs from './SpeechActions/SpeechActionsTabs';
+
+import { getSpeech } from '../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,14 +27,17 @@ function SpeechPage(props) {
 
     const [speech, setSpeech] = useState(null);
 
-    var speechId = useParams();
+    // credit to ofir ♥
+    var {id: speechId} = useParams();
 
     if (speech == null) {
-        getSpeech(speechId).then((response) => { setSpeech(response); })
+        getSpeech(speechId).then((response) => { 
+            setSpeech(response.data); 
+        })
     }
 
     return (
-        <div>
+        // <div>
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     <Paper className={classes.paper}>
@@ -43,7 +50,7 @@ function SpeechPage(props) {
                     </Paper>
                 </Grid>
             </Grid>
-        </div>
+        // </div>
     );
 }
 

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SearchResults(props) {
+
   const classes = useStyles();
 
   return (
@@ -27,30 +28,37 @@ function SearchResults(props) {
         {props.searchResults ? props.searchResults.length : 0} speeches found
       </Typography>
       <List className={classes.root}>
-        {props.searchResults && props.searchResults.map(x =>
-          <Link to={"/speech/" + x.id}>
-            <ListItem>
-              <ListItemText
-                primary={x.name}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      className={classes.inline}
-                      color="textPrimary"
-                    >
-                      {x.speaker} | {x.location}
-                    </Typography>
-                    {(() => {
-                      // Bold the searched word in the returned text
-                      var text = x.text.split(props.query);
-                      return (text.map((x, idx) => idx !== text.length - 1 ? <><span>{x}</span><b>{props.query}</b></> : <span>{x}</span>))
-                    })()}
-                  </React.Fragment>
-                } />
-            </ListItem>
-          </Link>)
+        {
+          props.searchResults && props.searchResults.map(x =>
+            <Link key={x.id} to={"/speech/" + x.id}>
+              <ListItem>
+                <ListItemText
+                  primary={x.name}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        className={classes.inline}
+                        color="textPrimary"
+                      >
+                        {x.speaker} | {x.location}
+                      </Typography>
+                      {(() => {
+                        // Bold the searched word in the returned text
+                        var text = x.text.split(props.query);
+                        return (text.map((x, idx) => idx !== text.length - 1 ?
+                          <React.Fragment key={idx} >
+                            <span>{x}</span>
+                            <b>{props.query}</b>
+                          </React.Fragment>
+                          :
+                          <span key={idx} >{x}</span>))
+                      })()}
+                    </React.Fragment>
+                  } />
+              </ListItem>
+            </Link>)
         }
       </List>
     </div >

@@ -8,11 +8,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <TopBar />
       <Router>
+        <TopBar />
         <Switch>
           <Route path="/speech/:id">
-            <SpeechPage/>
+            <SpeechPage />
           </Route>
           <Route path="/">
             <SearchPage />
