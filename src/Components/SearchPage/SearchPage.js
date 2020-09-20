@@ -7,6 +7,9 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import SearchReaults from './SearchResults';
 import { searchSpeeches } from '../../Utils/SpeechUtil';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import NewSpeechPage from '../NewSpeechPage/NewSpeechPage';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,12 +30,26 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(3),
+        right: theme.spacing(3),
+    },
 }));
 
 function SearchPage() {
     const classes = useStyles();
     const [query, setQuery] = useState("");
     const [results, setResults] = useState(null);
+    const [newSpeechOpen, setNewSpeechOpen] = useState(false);
+
+    const openNewSpeech = () => {
+        setNewSpeechOpen(true);
+    };
+
+    const closeNewSpeech = () => {
+        setNewSpeechOpen(false);
+    };
 
     const searchSpeech = (query) => {
         searchSpeeches(query).then((response) => {
@@ -41,7 +58,7 @@ function SearchPage() {
             console.log(error);
         });
     };
-    
+
     return (
         <div>
             <Paper className={classes.root} elevation={3}>
@@ -57,6 +74,12 @@ function SearchPage() {
             </Paper>
             <Divider variant="middle" />
             <SearchReaults searchResults={results} query={query} />
+            <Fab aria-label='Add' className={classes.fab} color='primary'>
+                <Button aria-label="Add" onClick={(event) => { openNewSpeech() }}>
+                    <AddIcon />
+                </Button>
+            </Fab>
+            <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
         </div>
     );
 }

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+// import { KeyboardDatePicker } from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
 }));
@@ -26,7 +26,7 @@ function NewSpeechPage(props) {
                     <TextField id="standard-basic" label="Speech Title" inputProps={{ value: speech && speech.name }} />
                     <TextField id="standard-basic" label="Speaker" inputProps={{ value: speech && speech.speaker }} />
                     <TextField id="standard-basic" label="Location" inputProps={{ value: speech && speech.location }} />
-                    <KeyboardDatePicker
+                    {/* <KeyboardDatePicker
                         disableToolbar
                         variant="inline"
                         format="dd/MM/yyyy"
@@ -34,11 +34,11 @@ function NewSpeechPage(props) {
                         id="date-picker-inline"
                         label="Date"
                         value={speech && speech.date}
-                        onChange={handleDateChange}
+                        // onChange={handleDateChange}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}
-                    />
+                    /> */}
                 </form>
             </DialogContent>
             <DialogActions>
