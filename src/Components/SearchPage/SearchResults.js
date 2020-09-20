@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: 'inline',
   },
+  count: {
+    marginLeft: '5px',
+  },
 }));
 
 function SearchResults(props) {
@@ -24,7 +27,7 @@ function SearchResults(props) {
 
   return (
     <div>
-      <Typography variant="subtitle2" component="h6" align="left">
+      <Typography className={classes.count} variant="subtitle2" component="h6" align="left">
         {props.searchResults ? props.searchResults.length : 0} speeches found
       </Typography>
       <List className={classes.root}>

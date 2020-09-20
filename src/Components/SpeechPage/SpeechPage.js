@@ -32,7 +32,7 @@ function SpeechPage(props) {
 
     if (speech == null) {
         getSpeech(speechId).then((response) => { 
-            setSpeech(response.data); 
+            setSpeech(response); 
         })
     }
 
