@@ -34,7 +34,7 @@ function SpeechPage(props) {
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     <Paper className={classes.paper}>
-                        <SpeechActionsTabs />
+                        <SpeechActionsTabs speech={speech} />
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>

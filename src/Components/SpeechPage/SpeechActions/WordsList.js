@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        width: 400,
+        margin: '10px auto',
+    },
 }));
 
 function WordsList(props) {
@@ -12,7 +20,8 @@ function WordsList(props) {
             hidden={props.value !== props.index}
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
-                Words List
+            <Paper className={classes.root} elevation={3}>
+            </Paper>
         </div>
     )
 }

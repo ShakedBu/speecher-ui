@@ -24,7 +24,7 @@ function SpeechActionsTabs(props) {
                     <Tab label="Words List" />
                 </Tabs>
             </AppBar>
-            <SearchWord index={0} value={tabPosition} />
+            <SearchWord index={0} value={tabPosition} speech={props.speech}/>
             <SearchLocation index={1} value={tabPosition} />
             <WordsList index={2} value={tabPosition} />
         </div>
