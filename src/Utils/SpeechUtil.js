@@ -22,6 +22,10 @@ export const searchWordInSpeech = (speechId, word) => { };
 
 export const getWordsListFromSpeech = (speechId) => { };
 
+export const getWordsList = () => { };
+
+export const getGroup = () => { };
+
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
 
 export const createGroup = (groupName, words) => { };

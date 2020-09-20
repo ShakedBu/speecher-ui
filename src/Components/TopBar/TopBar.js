@@ -11,6 +11,7 @@ import GroupPage from './GroupPage';
 import PhrasePage from './PhrasePage';
 import StatisticPopup from './StatisticPopup';
 import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'flex',
+    color: '#fff',
   },
 }));
 
@@ -59,15 +61,18 @@ function TopBar() {
     <div className="TopBar" className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            SPEECHER
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" noWrap>
+              SPEECHER
           </Typography>
+          </Link>
           <Tooltip title="Group" aria-label="group">
             <IconButton
               edge="end"
               aria-label="group"
-              aria-labelledby="customized-dialog-title"
-              onClick={openGroup}>
+              aria-haspopup="true"
+              onClick={openGroup}
+              color="inherit">
               <TocIcon />
             </IconButton>
           </Tooltip>
