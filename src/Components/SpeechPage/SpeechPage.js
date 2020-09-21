@@ -28,29 +28,27 @@ function SpeechPage(props) {
     const [speech, setSpeech] = useState(null);
 
     // credit to ofir ♥
-    var {id: speechId} = useParams();
+    var { id: speechId } = useParams();
 
     if (speech == null) {
-        getSpeech(speechId).then((response) => { 
-            setSpeech(response); 
+        getSpeech(speechId).then((response) => {
+            setSpeech(response);
         })
     }
 
     return (
-        // <div>
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <Paper className={classes.paper}>
-                        <SpeechActionsTabs speech={speech} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={8}>
-                    <Paper className={classes.paper}>
-                        <SpeechView speech={speech} />
-                    </Paper>
-                </Grid>
+        <Grid container spacing={2}>
+            <Grid item xs={4}>
+                <Paper className={classes.paper}>
+                    <SpeechActionsTabs speech={speech} />
+                </Paper>
             </Grid>
-        // </div>
+            <Grid item xs={8}>
+                <Paper className={classes.paper}>
+                    <SpeechView speech={speech} />
+                </Paper>
+            </Grid>
+        </Grid>
     );
 }
 

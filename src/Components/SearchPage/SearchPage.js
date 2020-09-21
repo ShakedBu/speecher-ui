@@ -58,7 +58,7 @@ function SearchPage() {
     };
 
     return (
-        <div>
+        <>
             <Paper className={classes.root} elevation={3}>
                 <InputBase
                     className={classes.input}
@@ -78,7 +78,7 @@ function SearchPage() {
                 </Button>
             </Fab>
             <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
-        </div>
+        </>
     );
 }
 

@@ -26,7 +26,7 @@ function SearchResults(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <>
       <Typography className={classes.count} variant="subtitle2" component="h6" align="left">
         {props.searchResults ? props.searchResults.length : 0} speeches found
       </Typography>
@@ -64,7 +64,7 @@ function SearchResults(props) {
             </Link>)
         }
       </List>
-    </div >
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,27 +11,7 @@ import { getGroup } from '../../../Utils/GroupUtils';
 import GroupList from './GroupList';
 import GroupEdit from './GroupEdit';
 
-const useStyles = makeStyles((theme) => ({
-  chip: {
-    margin: theme.spacing(0.5),
-  },
-  chips: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    listStyle: 'none',
-    padding: theme.spacing(0.5),
-    margin: 0,
-    border: 'none',
-    boxShadow: 'none',
-  },
-  list: {
-  },
-}));
-
 function GroupPage(props) {
-  const classes = useStyles();
-
   const [currGroup, setCurrGroup] = useState(null);
 
   const setCurrentGroup = (groupId, groupName) => {
