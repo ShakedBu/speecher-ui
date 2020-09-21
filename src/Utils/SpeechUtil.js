@@ -28,8 +28,6 @@ export const getGroup = () => { };
 
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
 
-export const createGroup = (groupName, words) => { };
-
 export const createPhrase = (words) => { };
 
 export const addSpeech = (name, speaker, location, data, file) => { };
