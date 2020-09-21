@@ -5,6 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 import { getGroup } from '../../../Utils/GroupUtils';
 
@@ -34,6 +35,7 @@ function GroupPage(props) {
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <GroupList currGroup={currGroup} setSelected={setCurrentGroup} />
+            <Divider />
           </Grid>
           <Grid item xs={8}>
             <GroupEdit group={currGroup} groupChanged={setCurrentGroup} />

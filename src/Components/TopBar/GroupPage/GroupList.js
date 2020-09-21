@@ -33,7 +33,7 @@ function GroupList(props) {
 
     return (
         <>
-            <TextField id="outlined-search"
+            <TextField
                 label="New Group Name"
                 type="search"
                 value={newGroupName}

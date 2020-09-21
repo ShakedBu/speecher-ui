@@ -73,10 +73,8 @@ function GroupEdit({ group, groupChanged }) {
                 }}
                 renderInput={(params) =>
                     <TextField {...params}
-                        id="outlined-search"
                         label="Add Word"
                         type="search"
-                        variant="outlined"
                     />}
             />
             <Tooltip title="Add" aria-label="word">
