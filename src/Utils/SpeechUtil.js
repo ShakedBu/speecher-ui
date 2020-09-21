@@ -24,8 +24,6 @@ export const getWordsListFromSpeech = (speechId) => { };
 
 export const getWordsList = () => { };
 
-export const getGroup = () => { };
-
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
 
 export const createPhrase = (words) => { };

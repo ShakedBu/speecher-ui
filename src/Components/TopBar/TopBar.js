@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import TocIcon from '@material-ui/icons/Toc';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import GroupPage from './GroupPage';
+import GroupPage from './GroupPage/GroupPage';
 import PhrasePage from './PhrasePage';
 import StatisticPopup from './StatisticPopup';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -64,7 +64,7 @@ function TopBar() {
           <Link to="/">
             <Typography className={classes.title} variant="h6" noWrap>
               SPEECHER
-          </Typography>
+            </Typography>
           </Link>
           <Tooltip title="Group" aria-label="group">
             <IconButton
