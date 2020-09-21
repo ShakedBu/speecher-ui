@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -42,11 +40,6 @@ function GroupPage(props) {
           </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={() => props.handleClose()} color="primary">
-          OK
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
