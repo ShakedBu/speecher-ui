@@ -36,18 +36,13 @@ function GroupPage(props) {
   const [currGroup, setCurrGroup] = useState(null);
 
   const setCurrentGroup = (groupId, groupName) => {
-    if (currGroup == null || currGroup.id != groupId) {
-      getGroup(groupId).then((response) => {
-        setCurrGroup({
-          'id': groupId,
-          'name': groupName,
-          'words': response,
-        });
-      })
-    }
-    else {
-      setCurrGroup(null);
-    }
+    getGroup(groupId).then((response) => {
+      setCurrGroup({
+        'id': groupId,
+        'name': groupName,
+        'words': response,
+      });
+    })
   }
 
   return (
@@ -67,7 +62,7 @@ function GroupPage(props) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={() => { }} color="primary">
+        <Button autoFocus onClick={() => props.handleClose()} color="primary">
           OK
         </Button>
       </DialogActions>

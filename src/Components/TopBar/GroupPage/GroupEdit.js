@@ -11,26 +11,26 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-import { getGroup, addWords2Group } from '../../../Utils/GroupUtils';
+import { removeWordsFromGroup, addWords2Group } from '../../../Utils/GroupUtils';
 import { getAllWords } from '../../../Utils/WordUtils';
 
 const useStyles = makeStyles((theme) => ({
     chip: {
-      margin: theme.spacing(0.5),
+        margin: theme.spacing(0.5),
     },
     chips: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      listStyle: 'none',
-      padding: theme.spacing(0.5),
-      margin: 0,
-      border: 'none',
-      boxShadow: 'none',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        listStyle: 'none',
+        padding: theme.spacing(0.5),
+        margin: 0,
+        border: 'none',
+        boxShadow: 'none',
     },
-  }));
+}));
 
-function GroupEdit({group, groupChanged}) {
+function GroupEdit({ group, groupChanged }) {
     const classes = useStyles();
 
     const [allWords, setWords] = useState(null);
@@ -43,8 +43,14 @@ function GroupEdit({group, groupChanged}) {
     }
 
     const addWordToGroup = (groupId, word) => {
-        addWords2Group(groupId, [word]).then(() => {
-            groupChanged(groupId, group.name)
+        addWords2Group(groupId, [word.id]).then(() => {
+            groupChanged(groupId, group?.name)
+        })
+    }
+
+    const removeWordToGroup = (groupId, word) => {
+        removeWordsFromGroup(groupId, [word]).then(() => {
+            groupChanged(groupId, group?.name)
         })
     }
 
@@ -62,16 +68,19 @@ function GroupEdit({group, groupChanged}) {
                 options={allWords}
                 getOptionLabel={(option) => option.word}
                 style={{ width: 300 }}
+                onChange={(event, newValue) => {
+                    setWord(newValue);
+                }}
                 renderInput={(params) =>
-                    <TextField id="outlined-search"
+                    <TextField {...params}
+                        id="outlined-search"
                         label="Add Word"
                         type="search"
                         variant="outlined"
-                        value={word}
-                        onChange={(event) => setWord(event.target.value)} />}
+                    />}
             />
             <Tooltip title="Add" aria-label="word">
-                <Button onClick={() => { addWordToGroup(group.id, word) }}>
+                <Button onClick={() => { addWordToGroup(group?.id, word) }}>
                     <IconButton>
                         <AddCircleIcon />
                     </IconButton>
@@ -83,7 +92,7 @@ function GroupEdit({group, groupChanged}) {
                         <Chip
                             label={word.name}
                             className={classes.chip}
-                            onDelete={undefined}
+                            onDelete={() => removeWordToGroup(group.id, word.id)}
                         />
                     </li>
                 )}

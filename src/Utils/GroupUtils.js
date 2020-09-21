@@ -24,7 +24,7 @@ export const createGroup = (groupName, words) => {
 export const addWords2Group = (groupId, words) => {
     return (axios.put('http://localhost:5000/group', {
         'action': 'add',
-        'name': groupId,
+        'id': groupId,
         'words': words
     }, {
         headers: {
