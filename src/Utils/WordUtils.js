@@ -8,3 +8,10 @@ export const getAllWords = () => {
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
 }
+
+export const createPhrase = (words) => {
+    return (axios.post('http://localhost:5000/phrase', {
+        'words': words,
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+};

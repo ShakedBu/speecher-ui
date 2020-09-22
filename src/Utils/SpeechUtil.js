@@ -26,8 +26,6 @@ export const getWordsList = () => { };
 
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
 
-export const createPhrase = (words) => { };
-
 export const addSpeech = (speech) => { 
     return (axios.post('http://localhost:5000/speech', {
         'name': speech.name,
