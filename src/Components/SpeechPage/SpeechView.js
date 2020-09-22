@@ -11,10 +11,10 @@ function SpeechView(props) {
 
     return (
         <>
-            <Typography variant="h2" component="h3">{props.speech && props.speech.name}</Typography>
-            <Typography variant="h5" component="h6">{props.speech && props.speech.speaker + " | " + props.speech.location + " | " + props.speech.date}</Typography>
-            <Paper style={{ maxHeight: 800, overflow: 'auto' }} >
-                {props.speech && props.speech.full_text}
+            <Typography variant="h2" component="h3">{props.speech?.name}</Typography>
+            <Typography variant="h5" component="h6">{props.speech?.speaker + " | " + props.speech?.location + " | " + props.speech?.date}</Typography>
+            <Paper style={{ maxHeight: 800, overflow: 'auto', textAlign: 'left' }} >
+                {props.speech?.full_text.split('\n\n').map((x) => <><div>{x}</div><br /></>)}
             </Paper>
         </>
     );
