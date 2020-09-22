@@ -62,7 +62,7 @@ function PhrasePage(props) {
             getOptionLabel={(option) => option.word}
             filterSelectedOptions
             onChange={(event, newValue) => {
-              setWords([...words, newValue[0].id])
+              setWords(newValue.map((word) => word.id))
             }}
             renderInput={(params) => (
               <TextField
