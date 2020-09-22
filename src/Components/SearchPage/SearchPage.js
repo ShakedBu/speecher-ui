@@ -39,7 +39,9 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPage() {
     const classes = useStyles();
+
     const [query, setQuery] = useState("");
+    const [searchedVal, setSearchedVal] = useState(query);
     const [results, setResults] = useState(null);
     const [newSpeechOpen, setNewSpeechOpen] = useState(false);
 
@@ -52,23 +54,31 @@ function SearchPage() {
     };
 
     const searchSpeech = (query) => {
+        setQuery(query);
         searchSpeeches(query).then((response) => {
             setResults(response);
         });
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        searchSpeech(query);
+    };
+
     return (
         <>
             <Paper className={classes.root} elevation={3}>
-                <InputBase
-                    className={classes.input}
-                    placeholder="Search..."
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                />
-                <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => searchSpeech(query)}>
-                    <SearchIcon />
-                </Button>
+                <form onSubmit={handleSubmit}>
+                    <InputBase
+                        className={classes.input}
+                        placeholder="Search..."
+                        value={searchedVal}
+                        onChange={(event) => setSearchedVal(event.target.value)}
+                    />
+                    <Button type="search" className={classes.iconButton} aria-label="search" onClick={() => searchSpeech(searchedVal)}>
+                        <SearchIcon />
+                    </Button>
+                </form>
             </Paper>
             <Divider variant="middle" />
             <SearchReaults searchResults={results} query={query} />

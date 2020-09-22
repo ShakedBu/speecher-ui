@@ -28,4 +28,13 @@ export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => {
 
 export const createPhrase = (words) => { };
 
-export const addSpeech = (name, speaker, location, data, file) => { };
+export const addSpeech = (speech) => { 
+    return (axios.post('http://localhost:5000/speech', {
+        'name': speech.name,
+        'speaker': speech.speaker,
+        'location': speech.location,
+        'date': speech.date,
+        'file_path': speech.file,
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+};

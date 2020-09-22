@@ -21,18 +21,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchResults(props) {
+function SearchResults({searchResults, query}) {
 
   const classes = useStyles();
 
   return (
     <>
       <Typography className={classes.count} variant="subtitle2" component="h6" align="left">
-        {props.searchResults ? props.searchResults.length : 0} speeches found
+        {searchResults ? searchResults.length : 0} speeches found
       </Typography>
       <List className={classes.root}>
         {
-          props.searchResults && props.searchResults.map(x =>
+          searchResults?.map(x =>
             <Link key={x.id} to={"/speech/" + x.id}>
               <ListItem>
                 <ListItemText
@@ -49,11 +49,13 @@ function SearchResults(props) {
                       </Typography>
                       {(() => {
                         // Bold the searched word in the returned text
-                        var text = x.text.split(props.query);
+                        let originalWords = x.text.match(new RegExp(query,'ig'));
+                        let text = x.text.split(new RegExp(query,'i'));
+
                         return (text.map((x, idx) => idx !== text.length - 1 ?
                           <React.Fragment key={idx} >
                             <span>{x}</span>
-                            <b>{props.query}</b>
+                            <b>{originalWords[idx]}</b>
                           </React.Fragment>
                           :
                           <span key={idx} >{x}</span>))

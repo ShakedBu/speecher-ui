@@ -6,18 +6,22 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-// import { KeyboardDatePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+
+import { addSpeech } from '../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
 }));
 
 function NewSpeechPage(props) {
     const classes = useStyles();
-    const [speech, setNewSpeech] = useState(null);
+    const [speech, setNewSpeech] = useState({});
 
-    const addSpeech = () => {
-        props.handleClose();
+    const createSpeech = () => {
+        addSpeech(speech).then((response) => {
+            alert("Speech Added :)");
+            props.handleClose();
+        });
     };
 
     return (
@@ -29,37 +33,66 @@ function NewSpeechPage(props) {
             <DialogContent dividers>
                 <Grid container spacing={3}>
                     <Grid item xs={10}>
-                        <TextField id="standard-basic" label="Speech Title" inputProps={{ value: speech && speech.name }} />
+                        <TextField
+                            label="Speech Title"
+                            value={speech?.name}
+                            onChange={(event) => {
+                                let newSpeech = { ...speech };
+                                newSpeech.name = event.target.value
+                                setNewSpeech(newSpeech);
+                            }} />
                     </Grid>
                     <Grid item xs={4}>
-                        <TextField id="standard-basic" label="Speaker" inputProps={{ value: speech && speech.speaker }} />
+                        <TextField
+                            label="Speaker"
+                            value={speech?.speaker}
+                            onChange={(event) => {
+                                let newSpeech = { ...speech };
+                                newSpeech.speaker = event.target.value
+                                setNewSpeech(newSpeech);
+                            }} />
                     </Grid>
                     <Grid item xs={4}>
-                        <TextField id="standard-basic" label="Location" inputProps={{ value: speech && speech.location }} />
+                        <TextField
+                            label="Location"
+                            value={speech?.location}
+                            onChange={(event) => {
+                                let newSpeech = { ...speech };
+                                newSpeech.location = event.target.value
+                                setNewSpeech(newSpeech);
+                            }} />
                     </Grid>
-                    {/* <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="dd/MM/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Date"
-                        value={speech && speech.date}
-                        // onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    /> */}
+                    <Grid item xs={4}>
+                        <TextField
+                            label="Date"
+                            type="date"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            value={speech?.date}
+                            onChange={(event) => {
+                                let newSpeech = { ...speech };
+                                newSpeech.date = event.target.value
+                                setNewSpeech(newSpeech);
+                            }} />
+                    </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" component="label">
                             Upload File
-                        <input accept=".txt" type="file" />
+                        <input accept=".txt"
+                                type="file"
+                                onChange={(event) => {
+                                    let newSpeech = { ...speech };
+                                    newSpeech.file = 'C:\\Users\\buchs\\OneDrive\\Documents\\Studies\\סדנה בבסיסי נתונים\\Speeches\\' + event.target.files[0].name;
+                                    setNewSpeech(newSpeech);
+                                }} />
                         </Button>
+                        * Files are taken only from 'C:\Users\buchs\OneDrive\Documents\Studies\סדנה בבסיסי נתונים\Speeches\'
                     </Grid>
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={() => { addSpeech(); }} color="primary">
+                <Button autoFocus onClick={() => { createSpeech(); }} color="primary">
                     Create
                 </Button>
             </DialogActions>
