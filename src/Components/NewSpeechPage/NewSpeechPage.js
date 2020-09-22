@@ -87,7 +87,7 @@ function NewSpeechPage(props) {
                                     setNewSpeech(newSpeech);
                                 }} />
                         </Button>
-                        * Files are taken only from 'C:\Users\buchs\OneDrive\Documents\Studies\סדנה בבסיסי נתונים\Speeches\'
+                        <p>* Files are Uploaded from 'C:\Users\buchs\OneDrive\Documents\Studies\סדנה בבסיסי נתונים\Speeches\'</p>
                     </Grid>
                 </Grid>
             </DialogContent>

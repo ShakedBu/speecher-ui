@@ -54,10 +54,12 @@ function SearchPage() {
     };
 
     const searchSpeech = (query) => {
-        setQuery(query);
-        searchSpeeches(query).then((response) => {
-            setResults(response);
-        });
+        if (query != "") {
+            setQuery(query);
+            searchSpeeches(query).then((response) => {
+                setResults(response);
+            });
+        }
     };
 
     const handleSubmit = (e) => {
