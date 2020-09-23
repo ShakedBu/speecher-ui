@@ -78,34 +78,36 @@ function SearchWord(props) {
                 </form>
             </Paper>
             <Divider variant="middle" />
-            <List>
-                {
-                    results?.map((x, idx) =>
-                        //<Link key={x.id} to={"/speech/" + x.id}>
-                        <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
-                            <ListItemText
-                                primary={'paragraph: ' + x.paragraph + ' sentence: ' + x.sentence + ' index:' + x.index}
-                                secondary={
-                                    <a href={'#' + word + idx}>
-                                        {(() => {
-                                            // Bold the searched word in the returned text
-                                            let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
-                                            let text = x.some_sentence.split(new RegExp(query, 'i'));
+            <Paper  style={{maxHeight: 680, overflow: 'auto'}}elevation={3}>
+                <List>
+                    {
+                        results?.map((x, idx) =>
+                            //<Link key={x.id} to={"/speech/" + x.id}>
+                            <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
+                                <ListItemText
+                                    primary={'paragraph: ' + x.paragraph + ' sentence: ' + x.sentence + ' index:' + x.index}
+                                    secondary={
+                                        <a href={'#' + word + idx}>
+                                            {(() => {
+                                                // Bold the searched word in the returned text
+                                                let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
+                                                let text = x.some_sentence.split(new RegExp(query, 'i'));
 
-                                            return (text.map((x, indx) => indx !== text.length - 1 ?
-                                                <React.Fragment key={indx} >
-                                                    <span>{x}</span>
-                                                    <b>{originalWords[indx]}</b>
-                                                </React.Fragment>
-                                                :
-                                                <span key={indx} >{x}</span>))
-                                        })()}
-                                    </a>
-                                } />
-                        </ListItem>
-                        // </Link>)
-                    )}
-            </List>
+                                                return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                    <React.Fragment key={indx} >
+                                                        <span>{x}</span>
+                                                        <b>{originalWords[indx]}</b>
+                                                    </React.Fragment>
+                                                    :
+                                                    <span key={indx} >{x}</span>))
+                                            })()}
+                                        </a>
+                                    } />
+                            </ListItem>
+                            // </Link>)
+                        )}
+                </List>
+            </Paper>
         </div>
     )
 }
