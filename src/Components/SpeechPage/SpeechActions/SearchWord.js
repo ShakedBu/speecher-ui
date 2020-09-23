@@ -45,7 +45,7 @@ function SearchWord(props) {
         if (query != "") {
             searchWordInSpeech(props.speechId, query).then((response) => {
                 setResults(response);
-                props.setMarkedWords(response);
+                props.setMarkedWord(query);
             })
         }
     }
@@ -76,27 +76,27 @@ function SearchWord(props) {
             <Divider variant="middle" />
             <List>
                 {
-                    results?.map(x =>
+                    results?.map((x, idx) =>
                         //<Link key={x.id} to={"/speech/" + x.id}>
-                        <ListItem>
+                        <ListItem key={idx}>
                             <ListItemText
                                 primary={'paragraph: ' + x.paragraph + ' sentence: ' + x.sentence + ' index:' + x.index}
                                 secondary={
-                                    <React.Fragment>
+                                    <a href={'#' + word + idx}>
                                         {(() => {
                                             // Bold the searched word in the returned text
                                             let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
                                             let text = x.some_sentence.split(new RegExp(query, 'i'));
 
-                                            return (text.map((x, idx) => idx !== text.length - 1 ?
-                                                <React.Fragment key={idx} >
+                                            return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                <React.Fragment key={indx} >
                                                     <span>{x}</span>
-                                                    <b>{originalWords[idx]}</b>
+                                                    <b>{originalWords[indx]}</b>
                                                 </React.Fragment>
                                                 :
-                                                <span key={idx} >{x}</span>))
+                                                <span key={indx} >{x}</span>))
                                         })()}
-                                    </React.Fragment>
+                                    </a>
                                 } />
                         </ListItem>
                         // </Link>)
