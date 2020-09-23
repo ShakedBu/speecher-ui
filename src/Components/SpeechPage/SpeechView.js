@@ -11,17 +11,23 @@ function SpeechView(props) {
     const classes = useStyles();
 
     const buildSpeechText = () => {
+        let searchedWord = props.searched;
+        let markedWord = props.marked;
         let index = -1;
+
         return props.speech?.full_text.split('\n\n').map((x) => {
-            if (props.marked == null || !x.includes(props.marked))
+            if (props.searched == null || !x.includes(searchedWord))
                 return (<><div>{x}</div><br /></>)
 
-            let originalWords = x.match(new RegExp(props.marked, 'ig'));
-            let parts = x.split(new RegExp(props.marked, 'i'));
+            let originalWords = x.match(new RegExp(searchedWord, 'ig'));
+            let parts = x.split(new RegExp(searchedWord, 'i'));
             return (parts.map((w, idx) => {
                 if (idx !== parts.length - 1) {
                     index++;
-                    return (<><span>{w}</span><span id={props.marked + index} class={props.marked + index}>{originalWords[idx]}</span></>)
+                    if (index === markedWord)
+                        return (<><span>{w}</span><mark id={searchedWord + index}>{originalWords[idx]}</mark></>);
+
+                    return (<><span>{w}</span><b id={searchedWord + index}>{originalWords[idx]}</b></>);
                 }
                 return (<><span>{w}</span><br /><br /></>)
             }))

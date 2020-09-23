@@ -27,12 +27,17 @@ function SpeechPage(props) {
 
     const [speech, setSpeech] = useState(null);
     const [markedWord, setMarkedWord] = useState(null);
+    const [searchedWord, setSearchedWord] = useState(null);
 
     // credit to ofir ♥
     var { id: speechId } = useParams();
 
     const changeMarkedWord = (marked) => {
         setMarkedWord(marked);
+    }
+
+    const changeSearchedWord = (searched) => {
+        setSearchedWord(searched);
     }
 
     if (speech == null) {
@@ -45,12 +50,12 @@ function SpeechPage(props) {
         <Grid container spacing={2}>
             <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <SpeechActionsTabs speech={speech} setMarkedWord={changeMarkedWord} />
+                    <SpeechActionsTabs speech={speech} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} />
                 </Paper>
             </Grid>
             <Grid item xs={8}>
                 <Paper className={classes.paper}>
-                    <SpeechView speech={speech} marked={markedWord} />
+                    <SpeechView speech={speech} marked={markedWord} searched={searchedWord} />
                 </Paper>
             </Grid>
         </Grid>

@@ -45,7 +45,7 @@ function SearchWord(props) {
         if (query != "") {
             searchWordInSpeech(props.speechId, query).then((response) => {
                 setResults(response);
-                props.setMarkedWord(query);
+                props.setSearchedWord(query);
             })
         }
     }
@@ -54,6 +54,10 @@ function SearchWord(props) {
         e.preventDefault();
         searchWord();
     };
+
+    const navigateToWord = (index) => {
+        props.setMarkedWord(index);
+    }
 
     return (
         <div role="tabpanel"
@@ -82,7 +86,7 @@ function SearchWord(props) {
                             <ListItemText
                                 primary={'paragraph: ' + x.paragraph + ' sentence: ' + x.sentence + ' index:' + x.index}
                                 secondary={
-                                    <a href={'#' + word + idx}>
+                                    <Button onClick={(event) => { navigateToWord(idx) }} href={'#' + word + idx}>
                                         {(() => {
                                             // Bold the searched word in the returned text
                                             let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
@@ -91,12 +95,12 @@ function SearchWord(props) {
                                             return (text.map((x, indx) => indx !== text.length - 1 ?
                                                 <React.Fragment key={indx} >
                                                     <span>{x}</span>
-                                                    <b>{originalWords[indx]}</b>
+                                                    <b> {originalWords[indx]} </b>
                                                 </React.Fragment>
                                                 :
                                                 <span key={indx} >{x}</span>))
                                         })()}
-                                    </a>
+                                    </Button>
                                 } />
                         </ListItem>
                         // </Link>)
