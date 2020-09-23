@@ -82,11 +82,11 @@ function SearchWord(props) {
                 {
                     results?.map((x, idx) =>
                         //<Link key={x.id} to={"/speech/" + x.id}>
-                        <ListItem key={idx}>
+                        <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                             <ListItemText
                                 primary={'paragraph: ' + x.paragraph + ' sentence: ' + x.sentence + ' index:' + x.index}
                                 secondary={
-                                    <Button onClick={(event) => { navigateToWord(idx) }} href={'#' + word + idx}>
+                                    <a href={'#' + word + idx}>
                                         {(() => {
                                             // Bold the searched word in the returned text
                                             let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
@@ -95,12 +95,12 @@ function SearchWord(props) {
                                             return (text.map((x, indx) => indx !== text.length - 1 ?
                                                 <React.Fragment key={indx} >
                                                     <span>{x}</span>
-                                                    <b> {originalWords[indx]} </b>
+                                                    <b>{originalWords[indx]}</b>
                                                 </React.Fragment>
                                                 :
                                                 <span key={indx} >{x}</span>))
                                         })()}
-                                    </Button>
+                                    </a>
                                 } />
                         </ListItem>
                         // </Link>)

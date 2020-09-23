@@ -18,14 +18,14 @@ function SpeechView(props) {
         return props.speech?.full_text.split('\n\n').map((x) => {
             if (props.searched == null || !x.includes(searchedWord))
                 return (<><div>{x}</div><br /></>)
-
+            // TODO: Fix bug when the word is the first in the sentence :)
             let originalWords = x.match(new RegExp(searchedWord, 'ig'));
             let parts = x.split(new RegExp(searchedWord, 'i'));
             return (parts.map((w, idx) => {
                 if (idx !== parts.length - 1) {
                     index++;
                     if (index === markedWord)
-                        return (<><span>{w}</span><mark id={searchedWord + index}>{originalWords[idx]}</mark></>);
+                        return (<><span>{w}</span><b id={searchedWord + index}><mark>{originalWords[idx]}</mark></b></>);
 
                     return (<><span>{w}</span><b id={searchedWord + index}>{originalWords[idx]}</b></>);
                 }
