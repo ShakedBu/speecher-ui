@@ -18,7 +18,14 @@ export const getSpeech = (id) => {
     );
 }
 
-export const searchWordInSpeech = (speechId, word) => { };
+export const searchWordInSpeech = (speechId, word) => {
+    return (axios.get('http://localhost:5000/word?speech_id=' + speechId + '&word=' + word, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+ };
 
 export const getWordsListFromSpeech = (speechId) => { };
 
