@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function WordsList(props) {
+function SearchPhrase(props) {
     const classes = useStyles();
 
     return (
@@ -21,10 +21,10 @@ function WordsList(props) {
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
             <Paper className={classes.root} elevation={3}>
-                Words Lists
+                Search Phrase
             </Paper>
         </div>
     )
 }
 
-export default WordsList;
+export default SearchPhrase;
