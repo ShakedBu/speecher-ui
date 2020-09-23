@@ -37,12 +37,15 @@ function SearchWord(props) {
     const classes = useStyles();
 
     const [word, setWord] = useState("");
+    const [query, setQuery] = useState(word)
     const [results, setResults] = useState(null);
 
     const searchWord = () => {
-        if (word != "") {
-            searchWordInSpeech(props.speechId, word).then((response) => {
+        setQuery(word)
+        if (query != "") {
+            searchWordInSpeech(props.speechId, query).then((response) => {
                 setResults(response);
+                props.setMarkedWords(response);
             })
         }
     }
@@ -82,8 +85,8 @@ function SearchWord(props) {
                                     <React.Fragment>
                                         {(() => {
                                             // Bold the searched word in the returned text
-                                            let originalWords = x.some_sentence.match(new RegExp(word, 'ig'));
-                                            let text = x.some_sentence.split(new RegExp(word, 'i'));
+                                            let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
+                                            let text = x.some_sentence.split(new RegExp(query, 'i'));
 
                                             return (text.map((x, idx) => idx !== text.length - 1 ?
                                                 <React.Fragment key={idx} >
