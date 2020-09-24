@@ -13,23 +13,23 @@ function SpeechView(props) {
     const buildSpeechText = () => {
         // Mark only one Word
         if (props.located !== null) {
-            let locatedWord = props.located;
+            // let locatedWord = props.located;
 
-            return props.speech?.full_text.split('\n\n').map((p, p_idx) => {
-                if (p_idx != locatedWord.paragraph - 1)
-                    return <><div key={'p' + p_idx}>{p}</div><br /></>
+            // return props.speech?.full_text.split('\n\n').map((p, p_idx) => {
+            //     if (p_idx != locatedWord.paragraph - 1)
+            //         return <><div key={'p' + p_idx}>{p}</div><br /></>
 
-                return (p.split('([\\S]+?[[\\S\\s]+?(?:[.?!]))').map((s, s_idx) => {
-                    if (s_idx != locatedWord.sentence - 1)
-                        return <span key={'s' + s_idx}>{s} </span>
+            //     return (p.split('([\\S]+?[[\\S\\s]+?(?:[.?!]))').map((s, s_idx) => {
+            //         if (s_idx != locatedWord.sentence - 1)
+            //             return <span key={'s' + s_idx}>{s} </span>
 
-                    return (s.split(' ').map((w, w_idx) => {
-                        if (w_idx != locatedWord.index)
-                            return <span key={'w' + w_idx}>{w} </span>
-                        return <b id={w + 1}><mark>{w} </mark></b>
-                    }))
-                }))
-            })
+            //         return (s.split(' ').map((w, w_idx) => {
+            //             if (w_idx != locatedWord.index)
+            //                 return <span key={'w' + w_idx}>{w} </span>
+            //             return <b id={w + 1}><mark>{w} </mark></b>
+            //         }))
+            //     }))
+            // })
 
         }
         // Mark all occourence of word
