@@ -21,10 +21,10 @@ function SpeechActionsTabs(props) {
                     <Tab label="Search Phrase" />
                 </Tabs>
             </AppBar>
-            <SearchWord index={0} value={tabPosition} speechId={props.speech?.speech_id} setMarkedWord={props.setMarkedWord} setSearchedWord={props.setSearchedWord} />
-            <SearchLocation index={1} value={tabPosition} speechId={props.speech?.speech_id} setSearchedWord={props.setSearchedWord} />
-            <WordsList index={2} value={tabPosition} speechId={props.speech?.speech_id} />
-            <SearchPhrase index={3} value={tabPosition} speechId={props.speech?.speech_id} />
+            <SearchWord index={0} value={tabPosition} speechId={props.speechId} setMarkedWord={props.setMarkedWord} setSearchedWord={props.setSearchedWord} />
+            <SearchLocation index={1} value={tabPosition} speechId={props.speechId} setSearchedWord={props.setSearchedWord} />
+            <WordsList index={2} value={tabPosition} speechId={props.speechId} />
+            <SearchPhrase index={3} value={tabPosition} speechId={props.speechId} />
         </>
     )
 }

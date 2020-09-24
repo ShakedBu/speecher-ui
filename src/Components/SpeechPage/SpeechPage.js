@@ -50,7 +50,7 @@ function SpeechPage(props) {
         <Grid container spacing={2}>
             <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <SpeechActionsTabs speech={speech} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} />
+                    <SpeechActionsTabs speechId={speech?.speech_id} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} />
                 </Paper>
             </Grid>
             <Grid item xs={8}>

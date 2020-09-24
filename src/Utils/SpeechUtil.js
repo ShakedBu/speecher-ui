@@ -25,15 +25,22 @@ export const searchWordInSpeech = (speechId, word) => {
         },
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
- };
+};
 
 export const getWordsListFromSpeech = (speechId) => { };
 
-export const getWordsList = () => { };
-
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
 
-export const addSpeech = (speech) => { 
+export const getCountsBySpeech = (speechId) => {
+    return (axios.get('http://localhost:5000/statistics?speech_id=' + speechId, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+};
+
+export const addSpeech = (speech) => {
     return (axios.post('http://localhost:5000/speech', {
         'name': speech.name,
         'speaker': speech.speaker,
