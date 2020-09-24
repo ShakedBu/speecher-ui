@@ -16,23 +16,31 @@ function SpeechView(props) {
             let locatedWord = props.located;
 
             return props.speech?.full_text.split('\n\n').map((p, p_idx) => {
-                if (p_idx != locatedWord.paragraph - 1)
-                    return <><div key={'p' + p_idx}>{p}</div><br /></>
 
-                let sentences = p.split('([\\S]+?[[\\S\\s]+?(?:[.?!]))');
+                if (p_idx !== locatedWord.paragraph - 1)
+                    return <React.Fragment key={'p' + p_idx}><div>{p}</div><br /></React.Fragment>
+
+                let sentences = p.split(/([\S]+?[[\S\s]+?(?:[.?!]))/).filter(s => s && s !== " ");
+
                 return (sentences.map((s, s_idx) => {
-
-                    if (s_idx != locatedWord.sentence - 1) {
+                    if (s_idx !== locatedWord.sentence - 1) {
                         if (s_idx === sentences.length - 1)
-                            return <><span key={'s' + s_idx}>{s} </span><br /></>
+                            return <React.Fragment key={'s' + s_idx}><span>{s} </span><br /><br /></React.Fragment>
                         return <span key={'s' + s_idx}>{s} </span>
                     }
 
                     let words = s.split(' ');
                     return (words.map((w, w_idx) => {
-                        if (w_idx == locatedWord.index - 1)
-                            return <b id={w + 1}><mark>{w} </mark></b>
-                        return <span key={'w' + w_idx}>{w} </span>
+                        let wordElement;
+                        if (w_idx === locatedWord.index - 1)
+                            wordElement = <b key={'w' + w_idx} id={w + 1}><mark>{w} </mark></b>
+                        else
+                            wordElement = <span key={'w' + w_idx}>{w} </span>
+
+                        if (s_idx === sentences.length - 1 && w_idx === words.length - 1)
+                            return [wordElement, <br />, <br />]
+                        else
+                            return wordElement
                     }))
                 }))
             })

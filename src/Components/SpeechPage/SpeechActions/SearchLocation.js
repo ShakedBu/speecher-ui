@@ -64,7 +64,7 @@ function SearchLocation(props) {
                             }}
                             variant="outlined"
                             value={paragraph}
-                            onChange={(event) => { setParagraph(event.target.value) }}
+                            onChange={(event) => { setParagraph(parseInt(event.target.value)) }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -79,7 +79,7 @@ function SearchLocation(props) {
                             }}
                             variant="outlined"
                             value={sentence}
-                            onChange={(event) => { setSentence(event.target.value) }}
+                            onChange={(event) => { setSentence(parseInt(event.target.value)) }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -94,7 +94,7 @@ function SearchLocation(props) {
                             }}
                             variant="outlined"
                             value={word}
-                            onChange={(event) => { setWord(event.target.value) }}
+                            onChange={(event) => { setWord(parseInt(event.target.value)) }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -114,10 +114,13 @@ function SearchLocation(props) {
                             // Bold the searched word in the returned text
                             let text = result.full_sentence.split(' ');
 
-                            return (text.map((x, indx) => indx !== word ?
-                                <span key={indx}>{x} </span>
-                                :
-                                <b>{x} </b>))
+                            return text.map((x, indx) =>
+                                indx !== word ?
+                                    <span key={indx}>{x} </span>
+                                    :
+                                    <b key={indx}>{x} </b>
+
+                            )
                         })()}
                     </p>
                 }
