@@ -35,10 +35,12 @@ function SpeechPage(props) {
 
     const changeMarkedWord = (marked) => {
         setMarkedWord(marked);
+        setLocatedWord(null);
     }
 
     const changeSearchedWord = (searched) => {
         setSearchedWord(searched);
+        setLocatedWord(null);
     }
 
     const changedLocatedWord = (paragraph, sentence, index) => {
