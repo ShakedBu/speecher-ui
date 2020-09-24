@@ -28,6 +28,7 @@ function SpeechPage(props) {
     const [speech, setSpeech] = useState(null);
     const [markedWord, setMarkedWord] = useState(null);
     const [searchedWord, setSearchedWord] = useState(null);
+    const [locatedWord, setLocatedWord] = useState(null);
 
     // credit to ofir ♥
     var { id: speechId } = useParams();
@@ -40,6 +41,10 @@ function SpeechPage(props) {
         setSearchedWord(searched);
     }
 
+    const changedLocatedWord = (paragraph, sentence, index) => {
+        setLocatedWord({ 'paragraph': paragraph, 'sentence': sentence, 'index': index });
+    }
+
     if (speech == null) {
         getSpeech(speechId).then((response) => {
             setSpeech(response);
@@ -50,12 +55,12 @@ function SpeechPage(props) {
         <Grid container spacing={2}>
             <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <SpeechActionsTabs speechId={speech?.speech_id} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} />
+                    <SpeechActionsTabs speechId={speech?.speech_id} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} setLocatedWord={changedLocatedWord} />
                 </Paper>
             </Grid>
             <Grid item xs={8}>
                 <Paper className={classes.paper}>
-                    <SpeechView speech={speech} marked={markedWord} searched={searchedWord} />
+                    <SpeechView speech={speech} marked={markedWord} searched={searchedWord} located={locatedWord}/>
                 </Paper>
             </Grid>
         </Grid>

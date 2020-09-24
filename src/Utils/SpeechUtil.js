@@ -29,7 +29,14 @@ export const searchWordInSpeech = (speechId, word) => {
 
 export const getWordsListFromSpeech = (speechId) => { };
 
-export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => { };
+export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => {
+    return (axios.get('http://localhost:5000/word?speech_id=' + speechId + '&paragraph=' + paragraphId + '&sentence=' + sentenceId + '&index=' + wordIndex, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+};
 
 export const getCountsBySpeech = (speechId) => {
     return (axios.get('http://localhost:5000/statistics?speech_id=' + speechId, {

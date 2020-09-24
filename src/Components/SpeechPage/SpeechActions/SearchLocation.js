@@ -4,7 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
+import Divider from '@material-ui/core/Divider';
 import SearchIcon from "@material-ui/icons/Search";
+
 import { getByLocation, getCountsBySpeech } from '../../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,16 +26,19 @@ function SearchLocation(props) {
     const [sentence, setSentence] = useState(1);
     const [word, setWord] = useState(1);
     const [compCounts, setCompCount] = useState(null);
+    const [result, setResult] = useState(null);
 
     const loadCounts = () => {
         getCountsBySpeech(props.speechId).then((response) => {
             setCompCount(response);
-            debugger;
         })
     }
 
     const searchWordByLocation = () => {
-
+        getByLocation(props.speechId, paragraph, sentence, word).then((response) => {
+            setResult(response)
+            props.setLocatedWord(paragraph, sentence, word);
+        })
     }
 
     if (compCounts == null) {
@@ -98,6 +103,24 @@ function SearchLocation(props) {
                         </Button>
                     </Grid>
                 </Grid>
+            </Paper>
+            <Divider variant="middle" />
+            <Paper>
+                {result == null ?
+                    <></>
+                    :
+                    <p>
+                        {(() => {
+                            // Bold the searched word in the returned text
+                            let text = result.full_sentence.split(' ');
+
+                            return (text.map((x, indx) => indx !== word ?
+                                <span key={indx}>{x} </span>
+                                :
+                                <b>{x} </b>))
+                        })()}
+                    </p>
+                }
             </Paper>
         </div>
     )
