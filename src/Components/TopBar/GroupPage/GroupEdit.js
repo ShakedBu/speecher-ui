@@ -88,7 +88,7 @@ function GroupEdit({ group, groupChanged }) {
                 {group?.words?.map((word) =>
                     <li key={word.id}>
                         <Chip
-                            label={word.name}
+                            label={word.word}
                             className={classes.chip}
                             onDelete={() => removeWordToGroup(group.id, word.id)}
                         />
