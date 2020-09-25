@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+
 import Paper from '@material-ui/core/Paper';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import SearchIcon from "@material-ui/icons/Search";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import { searchPhrase } from '../../../Utils/SpeechUtil';
+import { getAllPhrases } from '../../../Utils/WordUtils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -10,10 +22,41 @@ const useStyles = makeStyles((theme) => ({
         width: 400,
         margin: '10px auto',
     },
+    input: {
+        marginLeft: theme.spacing(1),
+        flex: 1,
+    },
+    iconButton: {
+        padding: 10,
+    },
+    divider: {
+        height: 28,
+        margin: 4,
+    },
 }));
 
 function SearchPhrase(props) {
     const classes = useStyles();
+
+    const [phrases, setPhrases] = useState(null);
+    const [selectedPhrase, setSelectePhrase] = useState(null);
+    const [results, setResults] = useState(null);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        findPhrase();
+    };
+
+    const findPhrase = () => {
+        searchPhrase(props.speechId, selectedPhrase).then((response) => setResults(response));
+    }
+
+    const loadPhrases = () => {
+        getAllPhrases().then((response) => setPhrases(response))
+    }
+
+    if (phrases == null)
+        loadPhrases();
 
     return (
         <div role="tabpanel"
@@ -21,7 +64,52 @@ function SearchPhrase(props) {
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
             <Paper className={classes.root} elevation={3}>
-                Search Phrase
+                <form onSubmit={handleSubmit}>
+                    <Autocomplete
+                        options={phrases}
+                        getOptionLabel={(option) => option.text}
+                        style={{ width: 300 }}
+                        onChange={(event, newValue) => {
+                            setSelectePhrase(newValue?.id);
+                        }}
+                        renderInput={(params) =>
+                            <TextField {...params}
+                                label="Search Phrase"
+                                type="search"
+                            />}
+                    />
+                    <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
+                        <SearchIcon />
+                    </Button>
+                </form>
+            </Paper>
+            <Divider variant="middle" />
+            <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
+                <List>
+                    {/* {results?.map((x, idx) =>
+                        <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
+                            <ListItemText
+                                primary={'paragraph: ' + x.paragraph + '| sentence: ' + x.sentence + '| index:' + x.index}
+                                secondary={
+                                    <a href={'#' + word + idx}>
+                                        {(() => {
+                                            // Bold the searched word in the returned text
+                                            let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
+                                            let text = x.some_sentence.split(new RegExp(query, 'i'));
+
+                                            return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                <React.Fragment key={indx} >
+                                                    <span>{x}</span>
+                                                    <b>{originalWords[indx]}</b>
+                                                </React.Fragment>
+                                                :
+                                                <span key={indx} >{x}</span>))
+                                        })()}
+                                    </a>
+                                } />
+                        </ListItem>)
+                    } */}
+                </List>
             </Paper>
         </div>
     )

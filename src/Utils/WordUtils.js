@@ -15,3 +15,12 @@ export const createPhrase = (words) => {
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
 };
+
+export const getAllPhrases = () => {
+    return (axios.get('http://localhost:5000/phrase', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}

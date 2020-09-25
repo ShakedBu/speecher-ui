@@ -64,3 +64,12 @@ export const addSpeech = (speech) => {
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
 };
+
+export const searchPhrase = (speechId, phraseId) => {
+    return (axios.get('http://localhost:5000/phrase?phraseId=' + phraseId + '&speechId=' + speechId, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}
