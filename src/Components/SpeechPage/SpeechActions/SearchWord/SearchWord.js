@@ -9,8 +9,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
-import { searchWordInSpeech } from '../../../Utils/SpeechUtil';
+import WordList from './WordsList';
+
+import { searchWordInSpeech } from '../../../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function SearchWord(props) {
     const classes = useStyles();
 
+    const [wordsList, setWordList] = useState(null);
     const [word, setWord] = useState("");
     const [query, setQuery] = useState(word)
     const [results, setResults] = useState(null);
@@ -48,6 +53,10 @@ function SearchWord(props) {
                 props.setSearchedWord(query);
             })
         }
+    }
+
+    const changeWordList = (words) => {
+        setWordList(words);
     }
 
     const handleSubmit = (e) => {
@@ -65,12 +74,26 @@ function SearchWord(props) {
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
             <Paper className={classes.root} elevation={3}>
+                <WordList speechId={props.speechId} words={wordsList} setWordsList={changeWordList} />
                 <form onSubmit={handleSubmit}>
-                    <InputBase
+                    {/* <InputBase
                         className={classes.input}
                         placeholder="Search..."
                         value={word}
                         onChange={(event) => setWord(event.target.value)}
+                    /> */}
+                    <Autocomplete
+                        options={wordsList}
+                        getOptionLabel={(option) => option.word}
+                        style={{ width: 300 }}
+                        onChange={(event, newValue) => {
+                            setWord(newValue?.word);
+                        }}
+                        renderInput={(params) =>
+                            <TextField {...params}
+                                label="Search Word"
+                                type="search"
+                            />}
                     />
                     <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => searchWord()}>
                         <SearchIcon />
@@ -78,7 +101,7 @@ function SearchWord(props) {
                 </form>
             </Paper>
             <Divider variant="middle" />
-            <Paper  style={{maxHeight: 680, overflow: 'auto'}}elevation={3}>
+            <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
                 <List>
                     {
                         results?.map((x, idx) =>

@@ -27,7 +27,14 @@ export const searchWordInSpeech = (speechId, word) => {
     );
 };
 
-export const getWordsListFromSpeech = (speechId) => { };
+export const getWordsListFromSpeech = (speechId) => {
+    return (axios.get('http://localhost:5000/word?speech_id=' + speechId, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+};
 
 export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => {
     return (axios.get('http://localhost:5000/word?speech_id=' + speechId + '&paragraph=' + paragraphId + '&sentence=' + sentenceId + '&index=' + wordIndex, {

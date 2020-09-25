@@ -41,7 +41,7 @@ function SearchLocation(props) {
         })
     }
 
-    if (compCounts == null) {
+    if (compCounts == null && props.speechId != null) {
         loadCounts();
     }
 
