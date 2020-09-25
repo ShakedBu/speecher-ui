@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 
 import { getAllWords } from '../../../../Utils/WordUtils';
 import { getWordsListFromSpeech } from '../../../../Utils/SpeechUtil';
@@ -50,37 +51,41 @@ function WordsList(props) {
         getAllWords().then((response) => props.setWordsList(response));
     }
 
-    // if (props.wordsList == null)
-    //     loadWords();
+    if (props.words === null)
+        loadWords();
 
     return (
-        <div>
-            <FormControl className={classes.formControl}>
-                <InputLabel>Words</InputLabel>
-                <Select
-                    value={listType}
-                    onChange={handleChangeType}
-                >
-                    <MenuItem value={10}>All Words</MenuItem>
-                    <MenuItem value={20}>Speech's Words</MenuItem>
-                    <MenuItem value={30}>Group's Words</MenuItem>
-                </Select>
-                <FormHelperText>Choose words' source</FormHelperText>
-            </FormControl>
-            {listType !== 30 ?
-                <></>
-                :
+        <>
+            <Grid container spacing={2}>
                 <FormControl className={classes.formControl}>
-                    <InputLabel>Groups</InputLabel>
+                    <InputLabel>Words</InputLabel>
                     <Select
-                        value={selectedGroup}
-                        onChange={handleChangeGroup}
+                        value={listType}
+                        onChange={handleChangeType}
                     >
-                        {allGroups?.map(g => <MenuItem key={g.id} value={g.id}>{g.name}</MenuItem>)}
+                        <MenuItem value={10}>All Words</MenuItem>
+                        <MenuItem value={20}>Speech's Words</MenuItem>
+                        <MenuItem value={30}>Group's Words</MenuItem>
                     </Select>
-                    <FormHelperText>Choose group</FormHelperText>
-                </FormControl>}
-        </div>
+                    <FormHelperText>Choose words' source</FormHelperText>
+                </FormControl>
+            </Grid>
+            <Grid container spacing={2}>
+                {listType !== 30 ?
+                    <></>
+                    :
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Groups</InputLabel>
+                        <Select
+                            value={selectedGroup}
+                            onChange={handleChangeGroup}
+                        >
+                            {allGroups?.map(g => <MenuItem key={g.id} value={g.id}>{g.name}</MenuItem>)}
+                        </Select>
+                        <FormHelperText>Choose group</FormHelperText>
+                    </FormControl>}
+            </Grid>
+        </>
     )
 }
 
