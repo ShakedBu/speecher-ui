@@ -65,9 +65,9 @@ function SpeechView(props) {
                     if (idx !== parts.length - 1) {
                         index++;
                         if (index === markedWord)
-                            return (<span key={idx}><span>{w}</span><b id={searchedWord + index}><mark>{originalWords[idx]}</mark></b></span>);
+                            return (<span key={idx}><span>{w}</span><b id={searchedWord.replaceAll(' ', '_') + index}><mark>{originalWords[idx]}</mark></b></span>);
 
-                        return (<span key={idx}><span>{w}</span><b id={searchedWord + index}>{originalWords[idx]}</b></span>);
+                        return (<span key={idx}><span>{w}</span><b id={searchedWord.replaceAll(' ', '_') + index}>{originalWords[idx]}</b></span>);
                     }
                     return (<span key={idx}><span>{w}</span><br /><br /></span>)
                 }))

@@ -66,7 +66,7 @@ export const addSpeech = (speech) => {
 };
 
 export const searchPhrase = (speechId, phraseId) => {
-    return (axios.get('http://localhost:5000/phrase?phraseId=' + phraseId + '&speechId=' + speechId, {
+    return (axios.get('http://localhost:5000/phrase?speech_id=' + speechId + '&phrase_id=' + phraseId, {
         headers: {
             'Content-Type': 'application/json',
         },

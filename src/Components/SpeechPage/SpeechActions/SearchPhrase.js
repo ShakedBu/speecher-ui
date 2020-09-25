@@ -48,11 +48,16 @@ function SearchPhrase(props) {
     };
 
     const findPhrase = () => {
-        searchPhrase(props.speechId, selectedPhrase).then((response) => setResults(response));
+        searchPhrase(props.speechId, selectedPhrase.id).then((response) => setResults(response));
+        props.setSearchedWord(selectedPhrase.text);
     }
 
     const loadPhrases = () => {
         getAllPhrases().then((response) => setPhrases(response))
+    }
+
+    const navigateToWord = (index) => {
+        props.setMarkedWord(index);
     }
 
     if (phrases == null)
@@ -70,7 +75,7 @@ function SearchPhrase(props) {
                         getOptionLabel={(option) => option.text}
                         style={{ width: 300 }}
                         onChange={(event, newValue) => {
-                            setSelectePhrase(newValue?.id);
+                            setSelectePhrase(newValue);
                         }}
                         renderInput={(params) =>
                             <TextField {...params}
@@ -86,16 +91,16 @@ function SearchPhrase(props) {
             <Divider variant="middle" />
             <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
                 <List>
-                    {/* {results?.map((x, idx) =>
+                    {results?.map((x, idx) =>
                         <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                             <ListItemText
-                                primary={'paragraph: ' + x.paragraph + '| sentence: ' + x.sentence + '| index:' + x.index}
+                                primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
                                 secondary={
-                                    <a href={'#' + word + idx}>
+                                    <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
                                         {(() => {
                                             // Bold the searched word in the returned text
-                                            let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
-                                            let text = x.some_sentence.split(new RegExp(query, 'i'));
+                                            let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
+                                            let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
 
                                             return (text.map((x, indx) => indx !== text.length - 1 ?
                                                 <React.Fragment key={indx} >
@@ -108,7 +113,7 @@ function SearchPhrase(props) {
                                     </a>
                                 } />
                         </ListItem>)
-                    } */}
+                    }
                 </List>
             </Paper>
         </div>

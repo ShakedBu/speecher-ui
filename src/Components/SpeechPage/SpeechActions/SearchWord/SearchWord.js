@@ -104,7 +104,7 @@ function SearchWord(props) {
                     {results?.map((x, idx) =>
                         <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                             <ListItemText
-                                primary={'paragraph: ' + x.paragraph + '| sentence: ' + x.sentence + '| index:' + x.index}
+                                primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
                                 secondary={
                                     <a href={'#' + word + idx}>
                                         {(() => {
