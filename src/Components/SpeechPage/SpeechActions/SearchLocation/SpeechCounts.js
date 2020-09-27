@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -27,16 +27,22 @@ function SpeechCounts(props) {
 
     const loadCounts = () => {
         if (props.speechId) {
-            // return getCountsBySpeech(props.speechId);
             getCountsBySpeech(props.speechId).then((response) => setCompCount(response))
         }
     }
 
-    //     const compCounts = useMemo(() => {
-    //         let loadPromise = new Promise((res, rej) => {
-    //             loadCounts().then(result => res(result));
-    //         });
-    //     }, [props.speechId]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getCountsBySpeech(props.speechId);
+            setCompCount(data);
+            setParagraph(0);
+            setSentence(0);
+            setWord(0);
+        }
+
+        fetchData();
+    }, [props.speechId]);
+
 
     const chnageParagraph = (event) => {
         let selectedParagraph = parseInt(event.target.value);
@@ -90,10 +96,6 @@ function SpeechCounts(props) {
     }
 
     if (compCounts == null && props.speechId != null) {
-        // setSpeechId(props.speechId);
-        // setParagraph(0);
-        // setSentence(0);
-        // setWord(0);
         loadCounts();
     }
 
@@ -120,7 +122,7 @@ function SpeechCounts(props) {
                     InputProps={{
                         inputProps: {
                             min: 0,
-                            max: compCounts == null || !paragraph || paragraph <= 0 ?
+                            max: compCounts == null || !paragraph || paragraph || paragraph > compCounts.length <= 0 ?
                                 0
                                 :
                                 compCounts[paragraph - 1].sentences.length
@@ -139,7 +141,8 @@ function SpeechCounts(props) {
                     InputProps={{
                         inputProps: {
                             min: 0,
-                            max: compCounts == null || !paragraph || paragraph <= 0 || !sentence || sentence <= 0 ?
+                            max: compCounts == null || !paragraph || paragraph <= 0 || paragraph > compCounts.length ||
+                                !sentence || sentence <= 0 || sentence > compCounts[paragraph - 1].sentences ?
                                 0
                                 :
                                 compCounts[paragraph - 1].sentences[sentence - 1].words
