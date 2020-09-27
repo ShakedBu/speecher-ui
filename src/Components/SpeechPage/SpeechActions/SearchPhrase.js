@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
 
 import { searchPhrase } from '../../../Utils/SpeechUtil';
 import { getAllPhrases } from '../../../Utils/WordUtils';
@@ -70,22 +71,28 @@ function SearchPhrase(props) {
             aria-labelledby={`simple-tab-${props.index}`}>
             <Paper className={classes.root} elevation={3}>
                 <form onSubmit={handleSubmit}>
-                    <Autocomplete
-                        options={phrases}
-                        getOptionLabel={(option) => option.text}
-                        style={{ width: 300 }}
-                        onChange={(event, newValue) => {
-                            setSelectePhrase(newValue);
-                        }}
-                        renderInput={(params) =>
-                            <TextField {...params}
-                                label="Search Phrase"
-                                type="search"
-                            />}
-                    />
-                    <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
-                        <SearchIcon />
-                    </Button>
+                    <Grid container spacing={2}>
+                        <Grid item spacing={2}>
+                            <Autocomplete
+                                options={phrases}
+                                getOptionLabel={(option) => option.text}
+                                style={{ width: 300 }}
+                                onChange={(event, newValue) => {
+                                    setSelectePhrase(newValue);
+                                }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Search Phrase"
+                                        type="search"
+                                    />}
+                            />
+                        </Grid>
+                        <Grid item spacing={2}>
+                            <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
+                                <SearchIcon />
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </form>
             </Paper>
             <Divider variant="middle" />

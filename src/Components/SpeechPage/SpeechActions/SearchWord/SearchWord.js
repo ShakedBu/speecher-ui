@@ -78,21 +78,27 @@ function SearchWord(props) {
                     <WordList speechId={props.speechId} words={wordsList} setWordsList={changeWordList} />
                     <Grid item xs={12}>
                         <form onSubmit={handleSubmit}>
-                            <Autocomplete
-                                options={wordsList}
-                                getOptionLabel={(option) => option.word}
-                                onChange={(event, newValue) => {
-                                    setWord(newValue?.word);
-                                }}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        label="Search Word"
-                                        type="search"
-                                    />}
-                            />
-                            <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => searchWord()}>
-                                <SearchIcon />
-                            </Button>
+                            <Grid container spacing={2}>
+                                <Grid item xs={8}>
+                                    <Autocomplete
+                                        options={wordsList}
+                                        getOptionLabel={(option) => option.word}
+                                        onChange={(event, newValue) => {
+                                            setWord(newValue?.word);
+                                        }}
+                                        renderInput={(params) =>
+                                            <TextField {...params}
+                                                label="Search Word"
+                                                type="search"
+                                            />}
+                                    />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Button type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
+                                        <SearchIcon />
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </form>
                     </Grid>
                 </Grid>

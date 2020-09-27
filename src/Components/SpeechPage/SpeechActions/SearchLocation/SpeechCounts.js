@@ -100,8 +100,8 @@ function SpeechCounts(props) {
     }
 
     return (
-        <Grid container spacing={4}>
-            <Grid item xs={12}>
+        <Grid container spacing={3}>
+            <Grid item xs={4}>
                 <TextField
                     label="Paragraph"
                     type="number"
@@ -114,7 +114,7 @@ function SpeechCounts(props) {
                     onChange={(e) => chnageParagraph(e)}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
                 <TextField
                     label="Sentence"
                     type="number"
@@ -133,7 +133,7 @@ function SpeechCounts(props) {
                     onChange={(e) => chnageSentence(e)}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
                 <TextField
                     label="Word"
                     type="number"

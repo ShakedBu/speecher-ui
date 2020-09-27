@@ -10,6 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 
 import { removeWordsFromGroup, addWords2Group } from '../../../Utils/GroupUtils';
 import { getAllWords } from '../../../Utils/WordUtils';
@@ -59,43 +60,50 @@ function GroupEdit({ group, groupChanged }) {
     }
 
     return (
-        <>
-            <Typography id="standard-basic" variant="h6" label="Group Name">
-                {group?.name == null ? "" : group.name}
-            </Typography>
-            <Autocomplete
-                id="combo-box-demo"
-                options={allWords}
-                getOptionLabel={(option) => option.word}
-                style={{ width: 300 }}
-                onChange={(event, newValue) => {
-                    setWord(newValue);
-                }}
-                renderInput={(params) =>
-                    <TextField {...params}
-                        label="Add Word"
-                        type="search"
-                    />}
-            />
-            <Tooltip title="Add" aria-label="word">
-                <Button onClick={() => { addWordToGroup(group?.id, word) }}>
-                    <IconButton>
-                        <AddCircleIcon />
-                    </IconButton>
-                </Button>
-            </Tooltip>
-            <Paper component="ul" className={classes.chips}>
-                {group?.words?.map((word) =>
-                    <li key={word.id}>
-                        <Chip
-                            label={word.word}
-                            className={classes.chip}
-                            onDelete={() => removeWordToGroup(group.id, word.id)}
-                        />
-                    </li>
-                )}
-            </Paper>
-        </>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Typography id="standard-basic" variant="h6" label="Group Name">
+                    {group?.name == null ? "" : group.name}
+                </Typography>
+            </Grid>
+            <Grid item xs={8}>
+                <Autocomplete
+                    id="combo-box-demo"
+                    options={allWords}
+                    getOptionLabel={(option) => option.word}
+                    onChange={(event, newValue) => {
+                        setWord(newValue);
+                    }}
+                    renderInput={(params) =>
+                        <TextField {...params}
+                            label="Add Word"
+                            type="search"
+                        />}
+                />
+            </Grid>
+            <Grid item xs={2}>
+                <Tooltip title="Add" aria-label="word">
+                    <Button disabled={group == null} onClick={() => { addWordToGroup(group?.id, word) }}>
+                        <IconButton>
+                            <AddCircleIcon />
+                        </IconButton>
+                    </Button>
+                </Tooltip>
+            </Grid>
+            <Grid item xs={12}>
+                <Paper component="ul" className={classes.chips}>
+                    {group?.words?.map((word) =>
+                        <li key={word.id}>
+                            <Chip
+                                label={word.word}
+                                className={classes.chip}
+                                onDelete={() => removeWordToGroup(group.id, word.id)}
+                            />
+                        </li>
+                    )}
+                </Paper>
+            </Grid>
+        </Grid>
     )
 }
 

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
@@ -32,40 +33,45 @@ function GroupList(props) {
     }
 
     return (
-        <>
-            <TextField
-                label="New Group Name"
-                type="search"
-                value={newGroupName}
-                onChange={(event) => setNewGroupName(event.target.value)} />
-            <Tooltip title="Create" aria-label="group">
-                <Button onClick={() => { createNewGroup(newGroupName) }}>
-                    <IconButton>
-                        <AddCircleIcon />
-                    </IconButton>
-                </Button>
-            </Tooltip>
-            <List
-                component="nav"
-                aria-label="groups"
-                subheader={
-                    <ListSubheader component="div" id="list-subheader">
-                        Groups
+        <Grid container spacing={1}>
+            <Grid item xs={8}>
+                <TextField
+                    label="New Group Name"
+                    type="search"
+                    value={newGroupName}
+                    onChange={(event) => setNewGroupName(event.target.value)} />
+            </Grid>
+            <Grid item xs={2}>
+                <Tooltip title="Create" aria-label="group">
+                    <Button onClick={() => { createNewGroup(newGroupName) }}>
+                        <IconButton>
+                            <AddCircleIcon />
+                        </IconButton>
+                    </Button>
+                </Tooltip>
+            </Grid>
+            <Grid item xs={10}>
+                <List
+                    component="nav"
+                    aria-label="groups"
+                    subheader={
+                        <ListSubheader component="div" id="list-subheader">
+                            Groups
                 </ListSubheader>}
-            >
-                {groups?.map((group) =>
-                    <ListItem
-                        key={group.id}
-                        button
-                        selected={group.id == props.currGroup?.id}
-                        onClick={() => { props.setSelected(group.id, group.name) }}
-                    >
-                        <ListItemText primary={group.name} />
-                    </ListItem>)}
-            </List>
-        </>
+                >
+                    {groups?.map((group) =>
+                        <ListItem
+                            key={group.id}
+                            button
+                            selected={group.id == props.currGroup?.id}
+                            onClick={() => { props.setSelected(group.id, group.name) }}
+                        >
+                            <ListItemText primary={group.name} />
+                        </ListItem>)}
+                </List>
+            </Grid>
+        </Grid>
     )
-
 }
 
 export default GroupList;

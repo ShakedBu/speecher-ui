@@ -56,7 +56,7 @@ function WordsList(props) {
 
     return (
         <>
-            <Grid container spacing={2}>
+            <Grid item xs={6}>
                 <FormControl className={classes.formControl}>
                     <InputLabel>Words</InputLabel>
                     <Select
@@ -70,7 +70,7 @@ function WordsList(props) {
                     <FormHelperText>Choose words' source</FormHelperText>
                 </FormControl>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid item xs={6}>
                 {listType !== 30 ?
                     <></>
                     :
