@@ -87,7 +87,7 @@ function SearchPage() {
             <SearchReaults searchResults={results} query={query} />
             <Fab aria-label='Add' className={classes.fab} color='primary'>
                 <Button aria-label="Add" onClick={(event) => { openNewSpeech() }}>
-                    <AddIcon />
+                    <AddIcon style={{color: '#fff'}}/>
                 </Button>
             </Fab>
             <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
