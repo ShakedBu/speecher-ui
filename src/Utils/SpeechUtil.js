@@ -73,3 +73,12 @@ export const searchPhrase = (speechId, phraseId) => {
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
 }
+
+export const getAllSpeeches = () => {
+    return (axios.get('http://localhost:5000/speech', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}

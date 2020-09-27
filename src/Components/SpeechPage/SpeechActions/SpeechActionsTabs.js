@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import SearchLocation from './SearchLocation';
+import SearchLocation from './SearchLocation/SearchLocation';
 import SearchWord from './SearchWord/SearchWord';
 import SearchPhrase from './SearchPhrase';
 

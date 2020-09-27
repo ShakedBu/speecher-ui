@@ -1,0 +1,28 @@
+import axios from 'axios';
+
+export const countChars = (speechId, paragraph, sentence, word) => {
+    let url = 'http://localhost:5000/statistics?count=chars&speech_id=' + speechId
+    paragraph == null ? url = url : url = url + '&paragraph=' + paragraph
+    sentence == null ? url = url : url = url + '&sentence=' + sentence
+    word == null ? url = url : url = url + '&word=' + word
+
+    return (axios.get(url, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}
+
+export const countWords = (speechId, paragraph, sentence) => {
+    let url = 'http://localhost:5000/statistics?count=words&speech_id=' + speechId
+    paragraph == null ? url = url : url = url + '&paragraph=' + paragraph
+    sentence == null ? url = url : url = url + '&sentence=' + sentence
+
+    return (axios.get(url, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}
