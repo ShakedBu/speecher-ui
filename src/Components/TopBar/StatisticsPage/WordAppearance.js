@@ -77,7 +77,7 @@ function WordAppearance(props) {
           </Button>
         </Grid>
         <Grid item xs={10}>
-          <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
+          <Paper style={{ maxHeight: 660, overflow: 'auto' }} elevation={3}>
             <TableContainer component={Paper}>
               <Table className={classes.table} size="small">
                 <TableHead>

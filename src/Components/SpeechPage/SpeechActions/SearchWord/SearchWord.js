@@ -6,7 +6,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -73,64 +72,72 @@ function SearchWord(props) {
             hidden={props.value !== props.index}
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
-            <Paper className={classes.root} elevation={3}>
-                <Grid container spacing={2}>
-                    <WordList speechId={props.speechId} words={wordsList} setWordsList={changeWordList} />
-                    <Grid item xs={12}>
-                        <form onSubmit={handleSubmit}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={8}>
-                                    <Autocomplete
-                                        options={wordsList}
-                                        getOptionLabel={(option) => option.word}
-                                        onChange={(event, newValue) => {
-                                            setWord(newValue?.word);
-                                        }}
-                                        renderInput={(params) =>
-                                            <TextField {...params}
-                                                label="Search Word"
-                                                type="search"
-                                            />}
-                                    />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
-                                        <SearchIcon />
-                                    </Button>
-                                </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Paper className={classes.root} elevation={3}>
+                        <Grid container spacing={2}>
+                            <WordList speechId={props.speechId} words={wordsList} setWordsList={changeWordList} />
+                            <Grid item xs={12}>
+                                <form onSubmit={handleSubmit}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={8}>
+                                            <Autocomplete
+                                                options={wordsList}
+                                                getOptionLabel={(option) => option.word}
+                                                onChange={(event, newValue) => {
+                                                    setWord(newValue?.word);
+                                                }}
+                                                renderInput={(params) =>
+                                                    <TextField {...params}
+                                                        label="Search Word"
+                                                        type="search"
+                                                    />}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Button type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
+                                                <SearchIcon />
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </form>
                             </Grid>
-                        </form>
-                    </Grid>
+                        </Grid>
+                    </Paper>
                 </Grid>
-            </Paper>
-            <Divider variant="middle" />
-            <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
-                <List>
-                    {results?.map((x, idx) =>
-                        <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
-                            <ListItemText
-                                primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
-                                secondary={
-                                    <a href={'#' + word + idx}>
-                                        {(() => {
-                                            // Bold the searched word in the returned text
-                                            let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
-                                            let text = x.some_sentence.split(new RegExp(query, 'i'));
+                <Grid item xs={12}>
+                    {results ?
+                        <Paper style={{ maxHeight: 585, overflow: 'auto' }} elevation={3}>
+                            <List>
+                                {results?.map((x, idx) =>
+                                    <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
+                                        <ListItemText
+                                            primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
+                                            secondary={
+                                                <a href={'#' + word + idx}>
+                                                    {(() => {
+                                                        // Bold the searched word in the returned text
+                                                        let originalWords = x.some_sentence.match(new RegExp(query, 'ig'));
+                                                        let text = x.some_sentence.split(new RegExp(query, 'i'));
 
-                                            return (text.map((x, indx) => indx !== text.length - 1 ?
-                                                <React.Fragment key={indx} >
-                                                    <span>{x}</span>
-                                                    <b>{originalWords[indx]}</b>
-                                                </React.Fragment>
-                                                :
-                                                <span key={indx} >{x}</span>))
-                                        })()}
-                                    </a>
-                                } />
-                        </ListItem>)
-                    }
-                </List>
-            </Paper>
+                                                        return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                            <React.Fragment key={indx} >
+                                                                <span>{x}</span>
+                                                                <b>{originalWords[indx]}</b>
+                                                            </React.Fragment>
+                                                            :
+                                                            <span key={indx} >{x}</span>))
+                                                    })()}
+                                                </a>
+                                            } />
+                                    </ListItem>)
+                                }
+                            </List>
+                        </Paper>
+                        :
+                        <></>}
+                </Grid>
+            </Grid>
         </div>
     )
 }

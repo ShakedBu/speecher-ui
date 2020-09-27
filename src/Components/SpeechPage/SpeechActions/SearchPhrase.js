@@ -96,33 +96,37 @@ function SearchPhrase(props) {
                 </form>
             </Paper>
             <Divider variant="middle" />
-            <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
-                <List>
-                    {results?.map((x, idx) =>
-                        <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
-                            <ListItemText
-                                primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
-                                secondary={
-                                    <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
-                                        {(() => {
-                                            // Bold the searched word in the returned text
-                                            let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
-                                            let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
+            {results ?
+                <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
+                    <List>
+                        {results?.map((x, idx) =>
+                            <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
+                                <ListItemText
+                                    primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
+                                    secondary={
+                                        <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
+                                            {(() => {
+                                                // Bold the searched word in the returned text
+                                                let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
+                                                let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
 
-                                            return (text.map((x, indx) => indx !== text.length - 1 ?
-                                                <React.Fragment key={indx} >
-                                                    <span>{x}</span>
-                                                    <b>{originalWords[indx]}</b>
-                                                </React.Fragment>
-                                                :
-                                                <span key={indx} >{x}</span>))
-                                        })()}
-                                    </a>
-                                } />
-                        </ListItem>)
-                    }
-                </List>
-            </Paper>
+                                                return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                    <React.Fragment key={indx} >
+                                                        <span>{x}</span>
+                                                        <b>{originalWords[indx]}</b>
+                                                    </React.Fragment>
+                                                    :
+                                                    <span key={indx} >{x}</span>))
+                                            })()}
+                                        </a>
+                                    } />
+                            </ListItem>)
+                        }
+                    </List>
+                </Paper>
+                :
+                <></>
+            }
         </div>
     )
 }

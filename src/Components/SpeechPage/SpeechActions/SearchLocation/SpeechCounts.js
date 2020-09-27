@@ -122,7 +122,7 @@ function SpeechCounts(props) {
                     InputProps={{
                         inputProps: {
                             min: 0,
-                            max: compCounts == null || !paragraph || paragraph || paragraph > compCounts.length <= 0 ?
+                            max: compCounts == null || !paragraph || paragraph > compCounts.length || paragraph <= 0 ?
                                 0
                                 :
                                 compCounts[paragraph - 1].sentences.length
@@ -135,6 +135,7 @@ function SpeechCounts(props) {
             </Grid>
             <Grid item xs={4}>
                 <TextField
+                    disabled={props.wordNotShown}
                     label="Word"
                     type="number"
                     InputLabelProps={{ shrink: true, }}
@@ -158,7 +159,7 @@ function SpeechCounts(props) {
                     props.sendLocation({
                         'paragraph': paragraph,
                         'sentence': sentence,
-                        'word': word
+                        'word': word,
                     })}>
                     <SearchIcon />
                 </Button>

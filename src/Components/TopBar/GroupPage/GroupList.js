@@ -43,7 +43,7 @@ function GroupList(props) {
             </Grid>
             <Grid item xs={2}>
                 <Tooltip title="Create" aria-label="group">
-                    <Button onClick={() => { createNewGroup(newGroupName) }}>
+                    <Button disabled={newGroupName === ""} onClick={() => { createNewGroup(newGroupName) }}>
                         <IconButton>
                             <AddCircleIcon />
                         </IconButton>

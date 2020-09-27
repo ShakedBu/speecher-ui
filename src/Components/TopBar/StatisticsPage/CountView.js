@@ -83,7 +83,7 @@ function CountView(props) {
                     />
                 </Grid>
                 <Grid item xs={10}>
-                    <SpeechCounts speechId={speech?.id} sendLocation={handleChangeLocation} />
+                    <SpeechCounts speechId={speech?.id} sendLocation={handleChangeLocation} wordNotShown={count == 10} />
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant='h3' type='h4'>{result}</Typography>
