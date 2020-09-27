@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export const countChars = (speechId, paragraph, sentence, word) => {
     let url = 'http://localhost:5000/statistics?count=chars&speech_id=' + speechId
-    paragraph == null ? url = url : url = url + '&paragraph=' + paragraph
-    sentence == null ? url = url : url = url + '&sentence=' + sentence
-    word == null ? url = url : url = url + '&word=' + word
+    paragraph == 0 ? url = url : url = url + '&paragraph=' + paragraph
+    sentence == 0 ? url = url : url = url + '&sentence=' + sentence
+    word == 0 ? url = url : url = url + '&word=' + word
 
     return (axios.get(url, {
         headers: {
@@ -16,8 +16,8 @@ export const countChars = (speechId, paragraph, sentence, word) => {
 
 export const countWords = (speechId, paragraph, sentence) => {
     let url = 'http://localhost:5000/statistics?count=words&speech_id=' + speechId
-    paragraph == null ? url = url : url = url + '&paragraph=' + paragraph
-    sentence == null ? url = url : url = url + '&sentence=' + sentence
+    paragraph == 0 ? url = url : url = url + '&paragraph=' + paragraph
+    sentence == 0 ? url = url : url = url + '&sentence=' + sentence
 
     return (axios.get(url, {
         headers: {

@@ -20,18 +20,76 @@ const useStyles = makeStyles((theme) => ({
 function SpeechCounts(props) {
     const classes = useStyles();
 
-    const [paragraph, setParagraph] = useState(1);
-    const [sentence, setSentence] = useState(1);
-    const [word, setWord] = useState(1);
+    const [paragraph, setParagraph] = useState(0);
+    const [sentence, setSentence] = useState(0);
+    const [word, setWord] = useState(0);
     const [compCounts, setCompCount] = useState(null);
+    const [speechId, setSpeechId] = useState(null);
 
     const loadCounts = () => {
-        getCountsBySpeech(props.speechId).then((response) => {
-            setCompCount(response);
-        })
+        if (props.speechId) {
+            getCountsBySpeech(props.speechId).then((response) => {
+                setCompCount(response);
+            })
+        }
     }
 
-    if (compCounts == null && props.speechId != null) {
+    const chnageParagraph = (event) => {
+        let selectedParagraph = parseInt(event.target.value);
+        if (!compCounts || !selectedParagraph) {
+            setParagraph(0);
+            return;
+        }
+        if (0 > selectedParagraph) {
+            setParagraph(0)
+            return;
+        }
+        if (selectedParagraph > compCounts.length) {
+            setParagraph(compCounts.length)
+            return;
+        }
+        setParagraph(selectedParagraph)
+    }
+
+    const chnageSentence = (event) => {
+        let selectedSentence = parseInt(event.target.value);
+        if (!compCounts || !selectedSentence) {
+            setSentence(0);
+            return;
+        }
+        if (0 > selectedSentence) {
+            setSentence(0)
+            return;
+        }
+        if (selectedSentence > compCounts[paragraph - 1].sentences.length) {
+            setSentence(compCounts[paragraph - 1].sentences.length)
+            return;
+        }
+        setSentence(selectedSentence)
+    }
+
+    const chnageWord = (event) => {
+        let selectedWord = parseInt(event.target.value);
+        if (!compCounts || !selectedWord) {
+            setWord(0);
+            return;
+        }
+        if (0 > selectedWord) {
+            setWord(0)
+            return;
+        }
+        if (selectedWord > compCounts[paragraph - 1].sentences[sentence - 1].words) {
+            setWord(compCounts[paragraph - 1].sentences[sentence - 1].words)
+            return;
+        }
+        setWord(selectedWord)
+    }
+
+    if (compCounts == null && props.speechId != null) {// || props.speechId !== speechId) {
+        // setSpeechId(props.speechId);
+        // setParagraph(0);
+        // setSentence(0);
+        // setWord(0);
         loadCounts();
     }
 
@@ -45,11 +103,11 @@ function SpeechCounts(props) {
                         shrink: true,
                     }}
                     InputProps={{
-                        inputProps: { min: 1, max: compCounts == null ? 1 : compCounts.length }
+                        inputProps: { min: 0, max: compCounts == null ? 1 : compCounts.length }
                     }}
                     variant="outlined"
                     value={paragraph}
-                    onChange={(event) => { setParagraph(parseInt(event.target.value)) }}
+                    onChange={(e) => chnageParagraph(e)}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -60,11 +118,17 @@ function SpeechCounts(props) {
                         shrink: true,
                     }}
                     InputProps={{
-                        inputProps: { min: 1, max: compCounts == null ? 1 : compCounts[paragraph - 1].sentences.length }
+                        inputProps: {
+                            min: 0,
+                            max: compCounts == null || !paragraph || paragraph <= 0 ?
+                                0
+                                :
+                                compCounts[paragraph - 1].sentences.length
+                        }
                     }}
                     variant="outlined"
                     value={sentence}
-                    onChange={(event) => { setSentence(parseInt(event.target.value)) }}
+                    onChange={(e) => chnageSentence(e)}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -75,11 +139,17 @@ function SpeechCounts(props) {
                         shrink: true,
                     }}
                     InputProps={{
-                        inputProps: { min: 1, max: compCounts == null ? 1 : compCounts[paragraph - 1].sentences[sentence - 1].words }
+                        inputProps: {
+                            min: 0,
+                            max: compCounts == null || !paragraph || paragraph <= 0 || !sentence || sentence <= 0 ?
+                                0
+                                :
+                                compCounts[paragraph - 1].sentences[sentence - 1].words
+                        }
                     }}
                     variant="outlined"
                     value={word}
-                    onChange={(event) => { setWord(parseInt(event.target.value)) }}
+                    onChange={(e) => chnageWord(e)}
                 />
             </Grid>
             <Grid item xs={12}>

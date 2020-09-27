@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 
 import SpeechCounts from '../SpeechPage/SpeechActions/SearchLocation/SpeechCounts';
@@ -34,6 +32,7 @@ function StatisticPopup(props) {
   const [speeches, setSpeeches] = useState(null);
   const [speech, setSpeech] = useState(null);
   const [count, setCount] = useState(10);
+  const [result, setResult] = useState(null);
 
   const loadSpeeches = () => {
     getAllSpeeches().then((response) => {
@@ -50,7 +49,16 @@ function StatisticPopup(props) {
   }
 
   const handleChangeLocation = (location) => {
-
+    if (count === 10) {
+      countWords(speech.id, location.paragraph, location.sentence).then((response) => {
+        setResult(response);
+      })
+    }
+    else {
+      countChars(speech.id, location.paragraph, location.sentence, location.word).then((response) => {
+        setResult(response);
+      })
+    }
   }
 
   if (speeches == null)
@@ -59,9 +67,8 @@ function StatisticPopup(props) {
   return (
     <Dialog
       open={props.open}
-      onClose={() => props.handleClose()}
-      aria-labelledby="customized-dialog-title">
-      <DialogTitle id="draggable-dialog-title">
+      onClose={() => props.handleClose()}>
+      <DialogTitle>
         Statistics
       </DialogTitle>
       <DialogContent dividers>
@@ -96,13 +103,11 @@ function StatisticPopup(props) {
           <Grid item xs={12}>
             <SpeechCounts speechId={speech?.id} sendLocation={handleChangeLocation} />
           </Grid>
+          <Grid item xs={12}>
+            <Typography variant='h3' type='h4'>{result}</Typography>
+          </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={() => { }} color="primary">
-          Show
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
