@@ -7,11 +7,12 @@ import IconButton from '@material-ui/core/IconButton';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import TocIcon from '@material-ui/icons/Toc';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import GroupPage from './GroupPage/GroupPage';
-import PhrasePage from './PhrasePage';
-import StatisticPopup from './StatisticPopup';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from "react-router-dom";
+
+import GroupPage from './GroupPage/GroupPage';
+import PhrasePage from './PhrasePage';
+import StatisticPopup from './StatisticsPage/StatisticPopup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
