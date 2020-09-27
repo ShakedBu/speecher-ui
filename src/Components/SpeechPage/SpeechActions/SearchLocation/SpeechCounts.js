@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -24,15 +24,19 @@ function SpeechCounts(props) {
     const [sentence, setSentence] = useState(0);
     const [word, setWord] = useState(0);
     const [compCounts, setCompCount] = useState(null);
-    const [speechId, setSpeechId] = useState(null);
 
     const loadCounts = () => {
         if (props.speechId) {
-            getCountsBySpeech(props.speechId).then((response) => {
-                setCompCount(response);
-            })
+            // return getCountsBySpeech(props.speechId);
+            getCountsBySpeech(props.speechId).then((response) => setCompCount(response))
         }
     }
+
+    //     const compCounts = useMemo(() => {
+    //         let loadPromise = new Promise((res, rej) => {
+    //             loadCounts().then(result => res(result));
+    //         });
+    //     }, [props.speechId]);
 
     const chnageParagraph = (event) => {
         let selectedParagraph = parseInt(event.target.value);
@@ -85,7 +89,7 @@ function SpeechCounts(props) {
         setWord(selectedWord)
     }
 
-    if (compCounts == null && props.speechId != null) {// || props.speechId !== speechId) {
+    if (compCounts == null && props.speechId != null) {
         // setSpeechId(props.speechId);
         // setParagraph(0);
         // setSentence(0);
@@ -99,9 +103,7 @@ function SpeechCounts(props) {
                 <TextField
                     label="Paragraph"
                     type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    InputLabelProps={{ shrink: true, }}
                     InputProps={{
                         inputProps: { min: 0, max: compCounts == null ? 1 : compCounts.length }
                     }}
@@ -114,9 +116,7 @@ function SpeechCounts(props) {
                 <TextField
                     label="Sentence"
                     type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    InputLabelProps={{ shrink: true, }}
                     InputProps={{
                         inputProps: {
                             min: 0,
@@ -135,9 +135,7 @@ function SpeechCounts(props) {
                 <TextField
                     label="Word"
                     type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    InputLabelProps={{ shrink: true, }}
                     InputProps={{
                         inputProps: {
                             min: 0,
