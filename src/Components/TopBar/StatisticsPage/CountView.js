@@ -12,7 +12,6 @@ import Select from '@material-ui/core/Select';
 
 import SpeechCounts from '../../SpeechPage/SpeechActions/SearchLocation/SpeechCounts';
 
-import { getAllSpeeches } from '../../../Utils/SpeechUtil';
 import { countChars, countWords } from '../../../Utils/StatisticsUtils';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,16 +24,10 @@ const useStyles = makeStyles((theme) => ({
 function CountView(props) {
     const classes = useStyles();
 
-    const [speeches, setSpeeches] = useState(null);
     const [speech, setSpeech] = useState(null);
     const [count, setCount] = useState(10);
     const [result, setResult] = useState(null);
 
-    const loadSpeeches = () => {
-        getAllSpeeches().then((response) => {
-            setSpeeches(response);
-        })
-    }
 
     const handleChangeCount = (event) => {
         setCount(event.target.value);
@@ -57,9 +50,6 @@ function CountView(props) {
         }
     }
 
-    if (speeches == null)
-        loadSpeeches();
-
     return (
         <div role="tabpanel"
             hidden={props.value !== props.index}
@@ -80,7 +70,7 @@ function CountView(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <Autocomplete
-                        options={speeches}
+                        options={props.speeches}
                         getOptionLabel={(option) => option.name}
                         style={{ width: 300 }}
                         onChange={(event, newValue) => {

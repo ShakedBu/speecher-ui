@@ -26,3 +26,15 @@ export const countWords = (speechId, paragraph, sentence) => {
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
     );
 }
+
+export const wordsAppearances = (speechId) => {
+    let url = 'http://localhost:5000/statistics?count=appearances'
+    speechId == null ? url = url : url = url + '&speech_id=' + speechId
+
+    return (axios.get(url, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    );
+}

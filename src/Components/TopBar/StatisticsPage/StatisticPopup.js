@@ -11,6 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import WordAppearance from './WordAppearance';
 import CountView from './CountView';
 
+import { getAllSpeeches } from '../../../Utils/SpeechUtil';
+
 const useStyles = makeStyles((theme) => ({
 
 }));
@@ -19,7 +21,16 @@ function StatisticPopup(props) {
   const classes = useStyles();
 
   const [tabPosition, setPosition] = useState(0);
+  const [speeches, setSpeeches] = useState(null);
 
+  const loadSpeeches = () => {
+    getAllSpeeches().then((response) => {
+      setSpeeches(response);
+    })
+  }
+
+  if (speeches == null)
+    loadSpeeches();
 
   return (
     <Dialog
@@ -35,8 +46,8 @@ function StatisticPopup(props) {
             <Tab label="Word Appearances" />
           </Tabs>
         </AppBar>
-        <CountView index={0} value={tabPosition} />
-        <WordAppearance index={1} value={tabPosition} />
+        <CountView index={0} value={tabPosition} speeches={speeches} />
+        <WordAppearance index={1} value={tabPosition} speeches={speeches}/>
       </DialogContent>
     </Dialog>
   );
