@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -79,7 +80,13 @@ function SpeechView(props) {
     return (
         <>
             <Typography variant="h2" component="h3">{props.speech?.name}</Typography>
-            <Typography variant="h5" component="h6">{props.speech?.speaker + " | " + props.speech?.location + " | " + props.speech?.date}</Typography>
+            <Typography variant="h5" component="h6">
+                {
+                    props.speech?.speaker + " | " +
+                    props.speech?.location + " | " +
+                    (!props.speech ? "" : format(new Date(props.speech.date), 'dd/MM/yyyy'))
+                }
+            </Typography>
             <Paper key={props.marked} style={{ maxHeight: 740, overflow: 'auto', textAlign: 'left' }} >
                 {buildSpeechText()}
             </Paper>
