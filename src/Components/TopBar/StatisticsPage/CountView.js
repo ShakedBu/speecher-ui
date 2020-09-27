@@ -55,8 +55,8 @@ function CountView(props) {
             hidden={props.value !== props.index}
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
-            <Grid container spacing={4}>
-                <Grid item xs={12}>
+            <Grid container spacing={2}>
+                <Grid item xs={10}>
                     <FormControl className={classes.formControl}>
                         <InputLabel>Count</InputLabel>
                         <Select
@@ -68,11 +68,10 @@ function CountView(props) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                     <Autocomplete
                         options={props.speeches}
                         getOptionLabel={(option) => option.name}
-                        style={{ width: 300 }}
                         onChange={(event, newValue) => {
                             handleChangeSpeech(newValue);
                         }}
@@ -83,10 +82,10 @@ function CountView(props) {
                             />}
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                     <SpeechCounts speechId={speech?.id} sendLocation={handleChangeLocation} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                     <Typography variant='h3' type='h4'>{result}</Typography>
                 </Grid>
             </Grid>

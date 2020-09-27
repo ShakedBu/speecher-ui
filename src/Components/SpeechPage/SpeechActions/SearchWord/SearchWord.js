@@ -81,7 +81,6 @@ function SearchWord(props) {
                             <Autocomplete
                                 options={wordsList}
                                 getOptionLabel={(option) => option.word}
-                                style={{ width: 300 }}
                                 onChange={(event, newValue) => {
                                     setWord(newValue?.word);
                                 }}
