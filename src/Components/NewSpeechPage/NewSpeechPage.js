@@ -26,6 +26,7 @@ function NewSpeechPage(props) {
                 <Grid container spacing={3}>
                     <Grid item xs={10}>
                         <TextField
+                            required
                             label="Speech Title"
                             value={speech?.name}
                             onChange={(event) => {
@@ -71,7 +72,8 @@ function NewSpeechPage(props) {
                     <Grid item xs={12}>
                         <Button variant="contained" component="label">
                             Upload File
-                        <input accept=".txt"
+                        <input required
+                                accept=".txt"
                                 type="file"
                                 onChange={(event) => {
                                     let newSpeech = { ...speech };

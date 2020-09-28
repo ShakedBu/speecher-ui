@@ -77,6 +77,7 @@ function CountView(props) {
                         }}
                         renderInput={(params) =>
                             <TextField {...params}
+                                required
                                 label="Speeches"
                                 type="search"
                             />}

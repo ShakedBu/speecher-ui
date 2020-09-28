@@ -91,11 +91,12 @@ function SearchWord(props) {
                                                     <TextField {...params}
                                                         label="Search Word"
                                                         type="search"
+                                                        required
                                                     />}
                                             />
                                         </Grid>
                                         <Grid item xs={2}>
-                                            <Button type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
+                                            <Button disabled={!word} type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
                                                 <SearchIcon />
                                             </Button>
                                         </Grid>

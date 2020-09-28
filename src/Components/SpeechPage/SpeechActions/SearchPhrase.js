@@ -84,11 +84,12 @@ function SearchPhrase(props) {
                                     <TextField {...params}
                                         label="Search Phrase"
                                         type="search"
+                                        required
                                     />}
                             />
                         </Grid>
                         <Grid item spacing={2}>
-                            <Button type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
+                            <Button disabled={!selectedPhrase} type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
                                 <SearchIcon />
                             </Button>
                         </Grid>

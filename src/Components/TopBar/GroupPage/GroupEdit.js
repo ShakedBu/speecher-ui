@@ -62,13 +62,12 @@ function GroupEdit({ group, groupChanged }) {
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
-                <Typography id="standard-basic" variant="h6" label="Group Name">
+                <Typography variant="h6" label="Group Name">
                     {group?.name == null ? "" : group.name}
                 </Typography>
             </Grid>
             <Grid item xs={8}>
                 <Autocomplete
-                    id="combo-box-demo"
                     options={allWords}
                     getOptionLabel={(option) => option.word}
                     onChange={(event, newValue) => {
@@ -76,6 +75,7 @@ function GroupEdit({ group, groupChanged }) {
                     }}
                     renderInput={(params) =>
                         <TextField {...params}
+                            required
                             label="Add Word"
                             type="search"
                         />}

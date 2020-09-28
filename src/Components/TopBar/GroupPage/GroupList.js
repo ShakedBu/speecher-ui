@@ -36,6 +36,7 @@ function GroupList(props) {
         <Grid container spacing={1}>
             <Grid item xs={8}>
                 <TextField
+                    required
                     label="New Group Name"
                     type="search"
                     value={newGroupName}
