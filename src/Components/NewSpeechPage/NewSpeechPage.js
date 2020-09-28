@@ -4,17 +4,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 import { addSpeech } from '../../Utils/SpeechUtil';
 
-const useStyles = makeStyles((theme) => ({
-}));
-
 function NewSpeechPage(props) {
-    const classes = useStyles();
     const [speech, setNewSpeech] = useState({});
 
     const createSpeech = () => {
@@ -25,11 +20,8 @@ function NewSpeechPage(props) {
     };
 
     return (
-        <Dialog
-            open={props.open}
-            onClose={() => props.handleClose()}
-            aria-labelledby="customized-dialog-title">
-            <DialogTitle id="draggable-dialog-title">New Speech</DialogTitle>
+        <Dialog open={props.open} onClose={(e) => props.handleClose()}>
+            <DialogTitle>New Speech</DialogTitle>
             <DialogContent dividers>
                 <Grid container spacing={3}>
                     <Grid item xs={10}>

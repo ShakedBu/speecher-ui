@@ -5,14 +5,14 @@ export const getAllWords = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }
 
 export const createPhrase = (words) => {
     return (axios.post('http://localhost:5000/phrase', {
         'words': words,
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -21,6 +21,6 @@ export const getAllPhrases = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }

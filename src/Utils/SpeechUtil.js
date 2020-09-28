@@ -5,7 +5,7 @@ export const searchSpeeches = (query) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }
 
@@ -14,7 +14,7 @@ export const getSpeech = (id) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }
 
@@ -23,7 +23,7 @@ export const searchWordInSpeech = (speechId, word) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -32,7 +32,7 @@ export const getWordsListFromSpeech = (speechId) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -41,7 +41,7 @@ export const getByLocation = (speechId, paragraphId, sentenceId, wordIndex) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -50,7 +50,7 @@ export const getCountsBySpeech = (speechId) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -61,7 +61,7 @@ export const addSpeech = (speech) => {
         'location': speech.location,
         'date': speech.date,
         'file_path': speech.file,
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 };
 
@@ -70,7 +70,7 @@ export const searchPhrase = (speechId, phraseId) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }
 
@@ -79,6 +79,6 @@ export const getAllSpeeches = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }

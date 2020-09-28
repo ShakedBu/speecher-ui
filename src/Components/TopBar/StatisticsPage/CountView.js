@@ -39,7 +39,7 @@ function CountView(props) {
 
     const handleChangeLocation = (location) => {
         if (count === 10) {
-            countWords(speech.id, location.paragraph, location.sentence).then((response) => {
+            countWords(speech?.id, location.paragraph, location.sentence).then((response) => {
                 setResult(response);
             })
         }

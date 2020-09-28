@@ -85,10 +85,8 @@ function SearchPage() {
             </Paper>
             <Divider variant="middle" />
             <SearchReaults searchResults={results} query={query} />
-            <Fab aria-label='Add' className={classes.fab} color='primary'>
-                <Button aria-label="Add" onClick={(event) => { openNewSpeech() }}>
-                    <AddIcon style={{color: '#fff'}}/>
-                </Button>
+            <Fab aria-label='Add' className={classes.fab} color='primary' onClick={(event) => { openNewSpeech() }}>
+                <AddIcon style={{ color: '#fff' }} />
             </Fab>
             <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
         </>
