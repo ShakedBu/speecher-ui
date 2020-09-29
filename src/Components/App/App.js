@@ -5,6 +5,7 @@ import './App.css';
 import TopBar from '../TopBar/TopBar';
 import SearchPage from '../SearchPage/SearchPage';
 import SpeechPage from '../SpeechPage/SpeechPage';
+import SignIn from '../SignIn/SignIn';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <Router>
           <TopBar />
           <Switch>
+            <Route path='/login'>
+              <SignIn />
+            </Route>
             <Route path="/speech/:id">
               <SpeechPage />
             </Route>
