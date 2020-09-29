@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PhrasePage(props) {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [allWords, setAllWords] = useState(null);
   const [words, setWords] = useState([]);
@@ -36,7 +38,9 @@ function PhrasePage(props) {
 
   const newPhrase = () => {
     createPhrase(words).then((response) => {
-      alert('Phrase Crated :)');
+      enqueueSnackbar('Phrase Created', {
+        variant: 'success',
+      });
       props.handleClose();
     });
   }
