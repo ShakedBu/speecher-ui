@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,12 +12,7 @@ import CountView from './CountView';
 
 import { getAllSpeeches } from '../../../Utils/SpeechUtil';
 
-const useStyles = makeStyles((theme) => ({
-
-}));
-
 function StatisticPopup(props) {
-  const classes = useStyles();
 
   const [tabPosition, setPosition] = useState(0);
   const [speeches, setSpeeches] = useState(null);

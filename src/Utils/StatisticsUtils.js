@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export const countChars = (speechId, paragraph, sentence, word) => {
     let url = 'http://localhost:5000/statistics?count=chars&speech_id=' + speechId
-    paragraph == 0 ? url = url : url = url + '&paragraph=' + paragraph
-    sentence == 0 ? url = url : url = url + '&sentence=' + sentence
-    word == 0 ? url = url : url = url + '&word=' + word
+    if (paragraph !== 0) url = url + '&paragraph=' + paragraph
+    if (sentence !== 0) url = url + '&sentence=' + sentence
+    if (word !== 0) url = url + '&word=' + word
 
     return (axios.get(url, {
         headers: {
@@ -16,8 +16,8 @@ export const countChars = (speechId, paragraph, sentence, word) => {
 
 export const countWords = (speechId, paragraph, sentence) => {
     let url = 'http://localhost:5000/statistics?count=words&speech_id=' + speechId
-    paragraph == 0 ? url = url : url = url + '&paragraph=' + paragraph
-    sentence == 0 ? url = url : url = url + '&sentence=' + sentence
+    if (paragraph !== 0) url = url + '&paragraph=' + paragraph
+    if (sentence !== 0) url = url + '&sentence=' + sentence
 
     return (axios.get(url, {
         headers: {
@@ -29,7 +29,7 @@ export const countWords = (speechId, paragraph, sentence) => {
 
 export const wordsAppearances = (speechId) => {
     let url = 'http://localhost:5000/statistics?count=appearances'
-    speechId == null ? url = url : url = url + '&speech_id=' + speechId
+    if (speechId != null) url = url + '&speech_id=' + speechId
 
     return (axios.get(url, {
         headers: {

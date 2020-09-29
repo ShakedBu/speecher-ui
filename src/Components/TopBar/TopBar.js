@@ -59,7 +59,7 @@ function TopBar() {
   }
 
   return (
-    <div className="TopBar" className={classes.root}>
+    <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <Link to="/">

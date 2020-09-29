@@ -64,7 +64,7 @@ function GroupList(props) {
                         <ListItem
                             key={group.id}
                             button
-                            selected={group.id == props.currGroup?.id}
+                            selected={group.id === props.currGroup?.id}
                             onClick={() => { props.setSelected(group.id, group.name) }}
                         >
                             <ListItemText primary={group.name} />

@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { format } from 'date-fns';
 
-const useStyles = makeStyles((theme) => ({
-
-}));
-
 function SpeechView(props) {
-    const classes = useStyles();
 
     const buildSpeechText = () => {
         // Mark only one Word

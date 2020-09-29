@@ -46,7 +46,7 @@ function SearchWord(props) {
 
     const searchWord = () => {
         setQuery(word)
-        if (query != "") {
+        if (query !== "") {
             searchWordInSpeech(props.speechId, query).then((response) => {
                 setResults(response);
                 props.setSearchedWord(query);
