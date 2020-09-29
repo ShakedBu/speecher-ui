@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TocIcon from '@material-ui/icons/Toc';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Link } from "react-router-dom";
 
 import GroupPage from './GroupPage/GroupPage';
 import PhrasePage from './PhrasePage';
 import StatisticPopup from './StatisticsPage/StatisticPopup';
+
+import { logout } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +62,10 @@ function TopBar() {
     setPhraseOpen(false);
   }
 
+  const handleLogout = () => {
+    logout();
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
@@ -100,6 +108,16 @@ function TopBar() {
             </IconButton>
           </Tooltip>
           <StatisticPopup open={statisticOpen} handleClose={closeStatistics} />
+          <Tooltip title="Log Out" aria-label="logout">
+            <IconButton
+              edge="end"
+              aria-label="logout"
+              aria-haspopup="true"
+              onClick={handleLogout}
+              color="inherit">
+              <ExitToAppIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </div>
