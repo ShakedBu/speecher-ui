@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -121,7 +122,7 @@ function SearchWord(props) {
                 <Grid item xs={12}>
                     {results ?
                         <Paper style={{ maxHeight: 585, overflow: 'auto' }} elevation={3}>
-                            <List>
+                            <List subheader={<ListSubheader>{results.length} results</ListSubheader>} >
                                 {results?.map((x, idx) =>
                                     <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                                         <ListItemText

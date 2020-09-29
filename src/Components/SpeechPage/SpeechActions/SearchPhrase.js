@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
@@ -111,7 +112,7 @@ function SearchPhrase(props) {
             <Divider variant="middle" />
             {results ?
                 <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
-                    <List>
+                    <List subheader={<ListSubheader>{results.length} results</ListSubheader>} >
                         {results?.map((x, idx) =>
                             <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                                 <ListItemText
