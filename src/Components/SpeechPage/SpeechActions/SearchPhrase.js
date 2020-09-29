@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import { searchPhrase } from '../../../Utils/SpeechUtil';
 import { getAllPhrases } from '../../../Utils/WordUtils';
@@ -114,22 +115,27 @@ function SearchPhrase(props) {
                         {results?.map((x, idx) =>
                             <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
                                 <ListItemText
-                                    primary={'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
+                                    primary={
+                                        <Typography variant='overline'>
+                                            {'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
+                                        </Typography>}
                                     secondary={
                                         <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
-                                            {(() => {
-                                                // Bold the searched word in the returned text
-                                                let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
-                                                let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
+                                            <Typography variant='body2'>
+                                                {(() => {
+                                                    // Bold the searched word in the returned text
+                                                    let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
+                                                    let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
 
-                                                return (text.map((x, indx) => indx !== text.length - 1 ?
-                                                    <React.Fragment key={indx} >
-                                                        <span>{x}</span>
-                                                        <b>{originalWords[indx]}</b>
-                                                    </React.Fragment>
-                                                    :
-                                                    <span key={indx} >{x}</span>))
-                                            })()}
+                                                    return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                        <React.Fragment key={indx} >
+                                                            <span>{x}</span>
+                                                            <b>{originalWords[indx]}</b>
+                                                        </React.Fragment>
+                                                        :
+                                                        <span key={indx} >{x}</span>))
+                                                })()}
+                                            </Typography>
                                         </a>
                                     } />
                             </ListItem>)
