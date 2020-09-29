@@ -15,7 +15,7 @@ export const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('jwt'));
 };
 
-export default function authHeader() {
+export const authHeader = () => {
     const user = JSON.parse(localStorage.getItem('jwt'));
 
     if (user && user.accessToken) {
