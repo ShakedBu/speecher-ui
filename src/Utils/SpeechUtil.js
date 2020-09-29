@@ -23,7 +23,7 @@ export const searchWordInSpeech = (speechId, word) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : null).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => { return { 'error': error.response } })
     );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchWord(props) {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [wordsList, setWordList] = useState(null);
     const [word, setWord] = useState("");
@@ -47,9 +49,18 @@ function SearchWord(props) {
     const searchWord = () => {
         setQuery(word)
         if (query !== "") {
-            searchWordInSpeech(props.speechId, query).then((response) => {
-                setResults(response);
-                props.setSearchedWord(query);
+            searchWordInSpeech(props.speechId, word).then((response) => {
+                if (response?.error) {
+                    enqueueSnackbar(response.error.data?.message, {
+                        variant: 'error',
+                    });
+                    setResults(null);
+                    props.setSearchedWord(null);
+                }
+                else {
+                    setResults(response);
+                    props.setSearchedWord(query);
+                }
             })
         }
     }
@@ -96,7 +107,7 @@ function SearchWord(props) {
                                             />
                                         </Grid>
                                         <Grid item xs={2}>
-                                            <Button disabled={!word} type="search" className={classes.iconButton} onClick={(event) => searchWord()}>
+                                            <Button disabled={!word} type="search" className={classes.iconButton}>
                                                 <SearchIcon />
                                             </Button>
                                         </Grid>
