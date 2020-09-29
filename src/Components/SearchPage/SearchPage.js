@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPage() {
     const classes = useStyles();
-
     const { enqueueSnackbar } = useSnackbar();
 
     const [query, setQuery] = useState("");

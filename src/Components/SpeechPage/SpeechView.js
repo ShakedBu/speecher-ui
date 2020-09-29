@@ -81,7 +81,7 @@ function SpeechView(props) {
                     (!props.speech ? "" : format(new Date(props.speech.date), 'dd/MM/yyyy'))
                 }
             </Typography>
-            <Paper key={props.marked} style={{ maxHeight: 740, overflow: 'auto', textAlign: 'left' }} >
+            <Paper key={props.marked} >
                 <Typography variant="body1">
                     {buildSpeechText()}
                 </Typography>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router-dom";
+import { useSnackbar } from 'notistack';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -13,14 +14,16 @@ import { getSpeech } from '../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        height: '100%',
     },
 }));
 
 function SpeechPage(props) {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [speech, setSpeech] = useState(null);
     const [markedWord, setMarkedWord] = useState(null);
@@ -46,7 +49,13 @@ function SpeechPage(props) {
 
     if (speech == null) {
         getSpeech(speechId).then((response) => {
-            setSpeech(response);
+            if (response.error) {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+            }
+            else
+                setSpeech(response);
         })
     }
 
