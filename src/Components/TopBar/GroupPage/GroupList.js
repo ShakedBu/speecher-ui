@@ -33,8 +33,12 @@ function GroupList(props) {
                     variant: 'error',
                 });
             }
-            else
+            else {
+                enqueueSnackbar('Group Created', {
+                    variant: 'success',
+                });
                 loadGroups()
+            }
         })
     }
 
