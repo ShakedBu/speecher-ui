@@ -33,11 +33,13 @@ function SpeechCounts(props) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getCountsBySpeech(props.speechId);
-            setCompCount(data);
-            setParagraph(0);
-            setSentence(0);
-            setWord(0);
+            if (props.speechId) {
+                const data = await getCountsBySpeech(props.speechId);
+                setCompCount(data);
+                setParagraph(0);
+                setSentence(0);
+                setWord(0);
+            }
         }
 
         fetchData();
