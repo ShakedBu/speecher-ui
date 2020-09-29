@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,6 +16,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { createGroup, getGroups } from '../../../Utils/GroupUtils';
 
 function GroupList(props) {
+    const { enqueueSnackbar } = useSnackbar();
+
     const [groups, setGroups] = useState(null);
     const [newGroupName, setNewGroupName] = useState("");
 
@@ -24,8 +27,15 @@ function GroupList(props) {
     }
 
     const createNewGroup = (groupName) => {
-        createGroup(groupName, []).then(() =>
-            loadGroups())
+        createGroup(groupName, []).then((response) => {
+            if (response?.error) {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+            }
+            else
+                loadGroups()
+        })
     }
 
     if (groups == null) {

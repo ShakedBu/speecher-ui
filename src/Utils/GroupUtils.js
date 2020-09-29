@@ -17,7 +17,7 @@ export const createGroup = (groupName, words) => {
     return (axios.post('http://localhost:5000/group', {
         'name': groupName,
         'words': words
-    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => { return { 'error': error.response } })
     );
 };
 
