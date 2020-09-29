@@ -1,10 +1,11 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
+
+import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchResults({searchResults, query}) {
+function SearchResults({ searchResults, query }) {
   const classes = useStyles();
 
   return (
@@ -28,26 +29,26 @@ function SearchResults({searchResults, query}) {
         {searchResults ? searchResults.length : 0} speeches found
       </Typography>
       <List className={classes.root}>
-        {
-          searchResults?.map(x =>
-            <Link key={x.id} to={"/speech/" + x.id}>
-              <ListItem>
-                <ListItemText
-                  primary={x.name}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                      >
-                        {x.speaker} | {x.location}
-                      </Typography>
+        {searchResults?.map(x =>
+          <Link key={x.id} to={"/speech/" + x.id}>
+            <ListItem>
+              <ListItemText
+                primary={x.name}
+                secondary={
+                  <>
+                    <Typography
+                      component="span"
+                      variant="body1"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >
+                      {x.speaker} | {x.location}
+                    </Typography>
+                    <Typography variant="body2">
                       {(() => {
                         // Bold the searched word in the returned text
-                        let originalWords = x.text.match(new RegExp(query,'ig'));
-                        let text = x.text.split(new RegExp(query,'i'));
+                        let originalWords = x.text.match(new RegExp(query, 'ig'));
+                        let text = x.text.split(new RegExp(query, 'i'));
 
                         return (text.map((x, idx) => idx !== text.length - 1 ?
                           <React.Fragment key={idx} >
@@ -57,11 +58,11 @@ function SearchResults({searchResults, query}) {
                           :
                           <span key={idx} >{x}</span>))
                       })()}
-                    </React.Fragment>
-                  } />
-              </ListItem>
-            </Link>)
-        }
+                    </Typography>
+                  </>
+                } />
+            </ListItem>
+          </Link>)}
       </List>
     </>
   );
