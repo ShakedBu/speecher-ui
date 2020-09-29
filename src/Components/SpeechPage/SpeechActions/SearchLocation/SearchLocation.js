@@ -57,7 +57,7 @@ function SearchLocation(props) {
             </Paper>
             <Divider variant="middle" />
             <Paper>
-                {result == null ?
+                {!result ?
                     <></>
                     :
                     <p>
@@ -70,7 +70,6 @@ function SearchLocation(props) {
                                     <span key={indx}>{x} </span>
                                     :
                                     <b key={indx}>{x} </b>
-
                             )
                         })()}
                     </p>
