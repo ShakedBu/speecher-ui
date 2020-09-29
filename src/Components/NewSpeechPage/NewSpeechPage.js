@@ -22,13 +22,13 @@ function NewSpeechPage(props) {
                 enqueueSnackbar(response.error.data?.message, {
                     variant: 'error',
                 });
-                props.handleClose();
             }
             else {
                 enqueueSnackbar('Speech ' + speech.name + ' Created!', {
                     variant: 'success',
                 });
                 props.handleClose();
+                setNewSpeech({});
             }
         });
     };
@@ -100,7 +100,7 @@ function NewSpeechPage(props) {
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={() => { createSpeech(); }} color="primary">
+                <Button disabled={!speech?.name || !speech?.file} autoFocus onClick={() => { createSpeech(); }} color="primary">
                     Create
                 </Button>
             </DialogActions>
