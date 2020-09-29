@@ -5,7 +5,7 @@ export const searchSpeeches = (query) => {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : null).catch((error) => { return { 'error': error.response } })
     );
 }
 

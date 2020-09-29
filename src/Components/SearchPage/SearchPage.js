@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
@@ -42,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 function SearchPage() {
     const classes = useStyles();
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const [query, setQuery] = useState("");
     const [searchedVal, setSearchedVal] = useState(query);
     const [results, setResults] = useState(null);
@@ -58,15 +61,23 @@ function SearchPage() {
     const searchSpeech = (query) => {
         if (query !== "") {
             setQuery(query);
+            
             searchSpeeches(query).then((response) => {
-                setResults(response);
+                if (response?.error) {
+                    enqueueSnackbar(response.error.data?.message, {
+                        variant: 'warning',
+                    });
+                    setResults(null);
+                }
+                else
+                    setResults(response);
             });
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        searchSpeech(query);
+        searchSpeech(searchedVal);
     };
 
     return (
@@ -79,14 +90,14 @@ function SearchPage() {
                     onChange={(event) => setSearchedVal(event.target.value)}
                 />
                 <Divider className={classes.divider} orientation="vertical" />
-                <Button type="search" className={classes.iconButton} aria-label="search" onClick={() => searchSpeech(searchedVal)}>
+                <Button disabled={!searchedVal} type="search" className={classes.iconButton} aria-label="search">
                     <SearchIcon />
                 </Button>
             </Paper>
             <Divider variant="middle" />
             <SearchReaults searchResults={results} query={query} />
             <Fab aria-label='Add' className={classes.fab} color='primary' onClick={(event) => { openNewSpeech() }}>
-                <AddIcon style={{ color: '#fff' }} />
+                <AddIcon />
             </Fab>
             <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
         </>
