@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import Paper from '@material-ui/core/Paper';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPhrase(props) {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [phrases, setPhrases] = useState(null);
     const [selectedPhrase, setSelectePhrase] = useState(null);
@@ -49,7 +51,16 @@ function SearchPhrase(props) {
     };
 
     const findPhrase = () => {
-        searchPhrase(props.speechId, selectedPhrase.id).then((response) => setResults(response));
+        searchPhrase(props.speechId, selectedPhrase.id).then((response) => {
+            if (response?.error) {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+                setResults(null);
+            }
+            else
+                setResults(response)
+        });
         props.setSearchedWord(selectedPhrase.text);
     }
 
@@ -89,7 +100,7 @@ function SearchPhrase(props) {
                             />
                         </Grid>
                         <Grid item spacing={2}>
-                            <Button disabled={!selectedPhrase} type="search" className={classes.iconButton} aria-label="search" onClick={(event) => findPhrase()}>
+                            <Button disabled={!selectedPhrase} type="search" className={classes.iconButton} aria-label="search">
                                 <SearchIcon />
                             </Button>
                         </Grid>
