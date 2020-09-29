@@ -12,7 +12,7 @@ export const getAllWords = () => {
 export const createPhrase = (words) => {
     return (axios.post('http://localhost:5000/phrase', {
         'words': words,
-    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => { return ({ 'error': error.response }) })
     );
 };
 

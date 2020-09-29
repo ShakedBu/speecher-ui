@@ -38,10 +38,17 @@ function PhrasePage(props) {
 
   const newPhrase = () => {
     createPhrase(words).then((response) => {
-      enqueueSnackbar('Phrase Created', {
-        variant: 'success',
-      });
-      props.handleClose();
+      if (response?.error) {
+        enqueueSnackbar(response?.error.data?.message, {
+          variant: 'error',
+        });
+      }
+      else {
+        enqueueSnackbar('Phrase Created', {
+          variant: 'success',
+        });
+        props.handleClose();
+      }
     });
   }
 
@@ -80,7 +87,7 @@ function PhrasePage(props) {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={() => newPhrase()} color="primary">
+        <Button autoFocus disabled={!words || words.length <= 1} onClick={() => newPhrase()} color="primary">
           Save
         </Button>
       </DialogActions>
