@@ -1,7 +1,7 @@
 import React from 'react';
+import { format } from 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { format } from 'date-fns';
 
 function SpeechView(props) {
 
@@ -82,7 +82,9 @@ function SpeechView(props) {
                 }
             </Typography>
             <Paper key={props.marked} style={{ maxHeight: 740, overflow: 'auto', textAlign: 'left' }} >
-                {buildSpeechText()}
+                <Typography variant="body1">
+                    {buildSpeechText()}
+                </Typography>
             </Paper>
         </>
     );

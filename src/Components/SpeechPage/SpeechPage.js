@@ -12,9 +12,6 @@ import SpeechActionsTabs from './SpeechActions/SpeechActionsTabs';
 import { getSpeech } from '../../Utils/SpeechUtil';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
     paper: {
         padding: theme.spacing(2),
         textAlign: 'center',
@@ -62,7 +59,7 @@ function SpeechPage(props) {
             </Grid>
             <Grid item xs={8}>
                 <Paper className={classes.paper}>
-                    <SpeechView speech={speech} marked={markedWord} searched={searchedWord} located={locatedWord}/>
+                    <SpeechView speech={speech} marked={markedWord} searched={searchedWord} located={locatedWord} />
                 </Paper>
             </Grid>
         </Grid>
