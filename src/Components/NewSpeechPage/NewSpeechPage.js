@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,12 +12,24 @@ import Grid from '@material-ui/core/Grid';
 import { addSpeech } from '../../Utils/SpeechUtil';
 
 function NewSpeechPage(props) {
+    const { enqueueSnackbar } = useSnackbar();
+
     const [speech, setNewSpeech] = useState({});
 
     const createSpeech = () => {
         addSpeech(speech).then((response) => {
-            alert("Speech Added :)");
-            props.handleClose();
+            if (response?.error) {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+                props.handleClose();
+            }
+            else {
+                enqueueSnackbar('Speech ' + speech.name + ' Created!', {
+                    variant: 'success',
+                });
+                props.handleClose();
+            }
         });
     };
 
