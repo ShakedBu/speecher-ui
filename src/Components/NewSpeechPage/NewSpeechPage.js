@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Divider from '@material-ui/core/Divider';
 
 import { addSpeech } from '../../Utils/SpeechUtil';
 
@@ -15,9 +17,13 @@ function NewSpeechPage(props) {
     const { enqueueSnackbar } = useSnackbar();
 
     const [speech, setNewSpeech] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const createSpeech = () => {
+        setLoading(true);
         addSpeech(speech).then((response) => {
+            setLoading(false);
+
             if (response?.error) {
                 enqueueSnackbar(response.error.data?.message, {
                     variant: 'error',
@@ -36,6 +42,7 @@ function NewSpeechPage(props) {
     return (
         <Dialog open={props.open} onClose={(e) => props.handleClose()}>
             <DialogTitle>New Speech</DialogTitle>
+            {loading ? <LinearProgress in={loading} /> : <Divider variant="middle" />}
             <DialogContent dividers>
                 <Grid container spacing={3}>
                     <Grid item xs={10}>

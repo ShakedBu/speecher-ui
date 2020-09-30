@@ -50,6 +50,8 @@ export const addSpeech = (speech) => {
         'location': speech.location,
         'date': speech.date,
         'file_path': speech.file,
+    }, {
+        headers: authHeader()
     }).then((result) => result.status === 200 ? result.data : null).catch((error) => { return { 'error': error.response } })
     );
 };
