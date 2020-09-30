@@ -9,7 +9,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Divider from '@material-ui/core/Divider';
 
 import { addSpeech } from '../../Utils/SpeechUtil';
 
@@ -42,7 +41,7 @@ function NewSpeechPage(props) {
     return (
         <Dialog open={props.open} onClose={(e) => props.handleClose()}>
             <DialogTitle>New Speech</DialogTitle>
-            {loading ? <LinearProgress in={loading} /> : <Divider variant="middle" />}
+            {loading ? <LinearProgress in={loading} /> : <></>}
             <DialogContent dividers>
                 <Grid container spacing={3}>
                     <Grid item xs={10}>

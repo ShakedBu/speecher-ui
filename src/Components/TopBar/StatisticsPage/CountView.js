@@ -38,13 +38,17 @@ function CountView(props) {
     }
 
     const handleChangeLocation = (location) => {
+        props.setLoading(true);
+        
         if (count === 10) {
             countWords(speech?.id, location.paragraph, location.sentence).then((response) => {
+                props.setLoading(false);
                 setResult(response);
             })
         }
         else {
             countChars(speech.id, location.paragraph, location.sentence, location.word).then((response) => {
+                props.setLoading(false);
                 setResult(response);
             })
         }

@@ -48,7 +48,11 @@ function WordAppearance(props) {
   }
 
   const showAppearances = () => {
-    wordsAppearances(speech?.id).then((response) => setWordAppearances(response));
+    props.setLoading(true);
+    wordsAppearances(speech?.id).then((response) => {
+      props.setLoading(false);
+      setWordAppearances(response)
+    });
   }
 
   return (
