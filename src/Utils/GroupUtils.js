@@ -35,7 +35,7 @@ export const addWords2Group = (groupId, words) => {
         'words': words
     }, {
         headers: authHeader()
-    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => { return { 'error': error.response } })
     );
 };
 
@@ -46,6 +46,6 @@ export const removeWordsFromGroup = (groupId, words) => {
         'words': words
     }, {
         headers: authHeader()
-    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
+    }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => { return { 'error': error.response } })
     );
 };

@@ -80,10 +80,6 @@ export default function SignIn(props) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        {/* <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    /> */}
                         <Button
                             type="submit"
                             fullWidth

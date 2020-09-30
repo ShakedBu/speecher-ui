@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 function GroupEdit({ group, groupChanged }) {
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [allWords, setWords] = useState(null);
     const [word, setWord] = useState("");
@@ -44,14 +46,26 @@ function GroupEdit({ group, groupChanged }) {
     }
 
     const addWordToGroup = (groupId, word) => {
-        addWords2Group(groupId, [word.id]).then(() => {
-            groupChanged(groupId, group?.name)
+        addWords2Group(groupId, [word.id]).then((response) => {
+            if (!response?.error)
+                groupChanged(groupId, group?.name)
+            else {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+            }
         })
     }
 
     const removeWordToGroup = (groupId, word) => {
-        removeWordsFromGroup(groupId, [word]).then(() => {
-            groupChanged(groupId, group?.name)
+        removeWordsFromGroup(groupId, [word]).then((response) => {
+            if (!response?.error)
+                groupChanged(groupId, group?.name)
+            else {
+                enqueueSnackbar(response.error.data?.message, {
+                    variant: 'error',
+                });
+            }
         })
     }
 
