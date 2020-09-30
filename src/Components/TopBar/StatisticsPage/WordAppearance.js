@@ -82,15 +82,15 @@ function WordAppearance(props) {
               <Table className={classes.table} size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="middle">Word</TableCell>
-                    <TableCell align="middle">Appearances</TableCell>
+                    <TableCell align="center">Word</TableCell>
+                    <TableCell align="center">Appearances</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {WordAppearances?.map((row) => (
                     <TableRow key={row.id}>
-                      <TableCell align="middle" component="th" scope="row">{row.word}</TableCell>
-                      <TableCell align="middle">{row.appearances}</TableCell>
+                      <TableCell align="center" component="th" scope="row">{row.word}</TableCell>
+                      <TableCell align="center">{row.appearances}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

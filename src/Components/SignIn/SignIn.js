@@ -9,9 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-import { login, getCurrentUser } from '../../Utils/AuthUtils';
+import { login } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,16 +36,19 @@ export default function SignIn() {
 
     const [userName, setUserName] = useState(null);
     const [password, setPassword] = useState(null);
+    const [isLogin, setLogin] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Log in
-        login();
+        login(userName, password).then((response) => {
+            setLogin(true);
+        });
 
     }
 
     return (
-        getCurrentUser() ?
+        isLogin ?
             <Redirect to="" />
             :
             <Container component="main" maxWidth="xs">

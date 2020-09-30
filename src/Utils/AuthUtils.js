@@ -1,10 +1,13 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 export const login = (userName, password) => {
-    Promise.resolve(true).then((response) => {
-        localStorage.setItem('jwt', JSON.stringify(response.data));
+    return (axios.post('http://localhost:5000/auth', {
+        'username': userName,
+        'password': password,
+    })).then((response) => {
+        sessionStorage.setItem('jwt', JSON.stringify(response.data));
         return response.data
-    })
+    }).catch((error) => console.error(error));
 };
 
 export const logout = () => {
@@ -12,14 +15,15 @@ export const logout = () => {
 };
 
 export const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('jwt'));
+    console.log('user!');
+    return JSON.parse(sessionStorage.getItem('jwt'));
 };
 
 export const authHeader = () => {
-    const user = JSON.parse(localStorage.getItem('jwt'));
+    const user = JSON.parse(sessionStorage.getItem('jwt'));
 
-    if (user && user.accessToken) {
-        return { 'x-access-token': user.accessToken };
+    if (user) {
+        return { 'Authorization': 'JWT ' + user.access_token };
     } else {
         return {};
     }
