@@ -32,7 +32,9 @@ function SearchLocation(props) {
     }
 
     const searchWordByLocation = (location) => {
+        props.setLoading(true);
         getByLocation(props.speechId, location.paragraph, location.sentence, location.word).then((response) => {
+            props.setLoading(false);
             setResult(response)
             setWord(location.word);
             props.setLocatedWord(location.paragraph, location.sentence, location.word);

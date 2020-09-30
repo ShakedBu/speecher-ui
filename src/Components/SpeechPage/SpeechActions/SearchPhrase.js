@@ -53,7 +53,9 @@ function SearchPhrase(props) {
     };
 
     const findPhrase = () => {
+        props.setLoading(true);
         searchPhrase(props.speechId, selectedPhrase.id).then((response) => {
+            props.setLoading(false);
             if (response?.error) {
                 enqueueSnackbar(response.error.data?.message, {
                     variant: 'error',

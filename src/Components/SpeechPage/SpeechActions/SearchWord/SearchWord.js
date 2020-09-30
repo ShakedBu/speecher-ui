@@ -50,8 +50,10 @@ function SearchWord(props) {
 
     const searchWord = () => {
         setQuery(word)
-        if (query !== "") {
+        if (word !== "") {
+            props.setLoading(true);
             searchWordInSpeech(props.speechId, word).then((response) => {
+                props.setLoading(false);
                 if (response?.error) {
                     enqueueSnackbar(response.error.data?.message, {
                         variant: 'error',

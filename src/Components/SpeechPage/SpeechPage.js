@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import SpeechView from './SpeechView';
 import SpeechActionsTabs from './SpeechActions/SpeechActionsTabs';
@@ -31,6 +32,7 @@ function SpeechPage(props) {
     const [markedWord, setMarkedWord] = useState(null);
     const [searchedWord, setSearchedWord] = useState(null);
     const [locatedWord, setLocatedWord] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     // credit to ofir ♥
     var { id: speechId } = useParams();
@@ -49,8 +51,13 @@ function SpeechPage(props) {
         setLocatedWord({ 'paragraph': paragraph, 'sentence': sentence, 'index': index });
     }
 
+    const changeLoading = (isLoading) => {
+        setLoading(isLoading);
+    }
+
     if (speech == null) {
         getSpeech(speechId).then((response) => {
+            setLoading(false);
             if (response.error) {
                 enqueueSnackbar(response.error.data?.message, {
                     variant: 'error',
@@ -65,18 +72,26 @@ function SpeechPage(props) {
         !getCurrentUser() ?
             <Redirect to="/login" />
             :
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <Paper className={classes.paper}>
-                        <SpeechActionsTabs speechId={speech?.speech_id} setMarkedWord={changeMarkedWord} setSearchedWord={changeSearchedWord} setLocatedWord={changedLocatedWord} />
-                    </Paper>
+            <>
+                {loading ? <LinearProgress in={loading} color="secondary" /> : <></>}
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Paper className={classes.paper}>
+                            <SpeechActionsTabs
+                                speechId={speech?.speech_id}
+                                setMarkedWord={changeMarkedWord}
+                                setSearchedWord={changeSearchedWord}
+                                setLocatedWord={changedLocatedWord}
+                                setLoading={changeLoading} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Paper className={classes.paper}>
+                            <SpeechView speech={speech} marked={markedWord} searched={searchedWord} located={locatedWord} />
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                    <Paper className={classes.paper}>
-                        <SpeechView speech={speech} marked={markedWord} searched={searchedWord} located={locatedWord} />
-                    </Paper>
-                </Grid>
-            </Grid>
+            </>
     );
 }
 
