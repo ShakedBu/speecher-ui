@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import SearchReaults from './SearchResults';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import NewSpeechPage from '../NewSpeechPage/NewSpeechPage';
 import { searchSpeeches } from '../../Utils/SpeechUtil';
@@ -49,6 +50,7 @@ function SearchPage(props) {
     const [searchedVal, setSearchedVal] = useState(query);
     const [results, setResults] = useState(null);
     const [newSpeechOpen, setNewSpeechOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const openNewSpeech = () => {
         setNewSpeechOpen(true);
@@ -61,8 +63,9 @@ function SearchPage(props) {
     const searchSpeech = (query) => {
         if (query !== "") {
             setQuery(query);
-
+            setLoading(true);
             searchSpeeches(query).then((response) => {
+                setLoading(false);
                 if (response?.error) {
                     enqueueSnackbar(response.error.data?.message, {
                         variant: 'warning',
@@ -97,7 +100,7 @@ function SearchPage(props) {
                         <SearchIcon />
                     </Button>
                 </Paper>
-                <Divider variant="middle" />
+                {loading ? <LinearProgress in={loading} /> : <Divider variant="middle" />}
                 <SearchReaults searchResults={results} query={query} />
                 <Fab aria-label='Add' className={classes.fab} color='primary' onClick={(event) => { openNewSpeech() }}>
                     <AddIcon />
