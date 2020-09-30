@@ -7,15 +7,26 @@ import SearchPage from '../SearchPage/SearchPage';
 import SpeechPage from '../SpeechPage/SpeechPage';
 import SignIn from '../SignIn/SignIn';
 
+import { login, logout } from '../../Utils/AuthUtils';
+
 function App() {
+
+  const logIn = (userName, password) => {
+    login(userName, password);
+  }
+
+  const logOut = () => {
+    logout();
+  }
+
   return (
     <SnackbarProvider maxSnack={3}>
       <div className="App">
         <Router>
-          <TopBar />
+          <TopBar logout={logOut} />
           <Switch>
             <Route path='/login'>
-              <SignIn />
+              <SignIn login={logIn} />
             </Route>
             <Route path="/speech/:id">
               <SpeechPage />

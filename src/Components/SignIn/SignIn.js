@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { login } from '../../Utils/AuthUtils';
+import { getCurrentUser } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,24 +31,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
 
     const [userName, setUserName] = useState(null);
     const [password, setPassword] = useState(null);
-    const [isLogin, setLogin] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Log in
-        login(userName, password).then((response) => {
-            setLogin(true);
-        });
-
+        props.login(userName, password);
     }
 
     return (
-        isLogin ?
+        getCurrentUser() ?
             <Redirect to="" />
             :
             <Container component="main" maxWidth="xs">

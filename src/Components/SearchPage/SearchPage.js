@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
+import { Redirect } from 'react-router-dom';
 
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
@@ -13,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import NewSpeechPage from '../NewSpeechPage/NewSpeechPage';
 import { searchSpeeches } from '../../Utils/SpeechUtil';
-
+import { getCurrentUser } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SearchPage() {
+function SearchPage(props) {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -60,7 +61,7 @@ function SearchPage() {
     const searchSpeech = (query) => {
         if (query !== "") {
             setQuery(query);
-            
+
             searchSpeeches(query).then((response) => {
                 if (response?.error) {
                     enqueueSnackbar(response.error.data?.message, {
@@ -80,26 +81,29 @@ function SearchPage() {
     };
 
     return (
-        <>
-            <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
-                <InputBase
-                    className={classes.input}
-                    placeholder="Search..."
-                    value={searchedVal}
-                    onChange={(event) => setSearchedVal(event.target.value)}
-                />
-                <Divider className={classes.divider} orientation="vertical" />
-                <Button disabled={!searchedVal} type="search" className={classes.iconButton} aria-label="search">
-                    <SearchIcon />
-                </Button>
-            </Paper>
-            <Divider variant="middle" />
-            <SearchReaults searchResults={results} query={query} />
-            <Fab aria-label='Add' className={classes.fab} color='primary' onClick={(event) => { openNewSpeech() }}>
-                <AddIcon />
-            </Fab>
-            <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
-        </>
+        !getCurrentUser() ?
+            <Redirect to="/login" />
+            :
+            <>
+                <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+                    <InputBase
+                        className={classes.input}
+                        placeholder="Search..."
+                        value={searchedVal}
+                        onChange={(event) => setSearchedVal(event.target.value)}
+                    />
+                    <Divider className={classes.divider} orientation="vertical" />
+                    <Button disabled={!searchedVal} type="search" className={classes.iconButton} aria-label="search">
+                        <SearchIcon />
+                    </Button>
+                </Paper>
+                <Divider variant="middle" />
+                <SearchReaults searchResults={results} query={query} />
+                <Fab aria-label='Add' className={classes.fab} color='primary' onClick={(event) => { openNewSpeech() }}>
+                    <AddIcon />
+                </Fab>
+                <NewSpeechPage open={newSpeechOpen} handleClose={closeNewSpeech} />
+            </>
     );
 }
 

@@ -11,11 +11,10 @@ export const login = (userName, password) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt');
 };
 
 export const getCurrentUser = () => {
-    console.log('user!');
     return JSON.parse(sessionStorage.getItem('jwt'));
 };
 
