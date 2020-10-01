@@ -18,6 +18,8 @@ function NewSpeechPage(props) {
     const [speech, setNewSpeech] = useState({});
     const [loading, setLoading] = useState(false);
 
+    const folder = process.env.REACT_APP_FOLDER || 'C:\\Users\\buchs\\OneDrive\\Documents\\Studies\\סדנה בבסיסי נתונים\\Speeches\\';
+
     const createSpeech = () => {
         setLoading(true);
         addSpeech(speech).then((response) => {
@@ -97,11 +99,11 @@ function NewSpeechPage(props) {
                                 type="file"
                                 onChange={(event) => {
                                     let newSpeech = { ...speech };
-                                    newSpeech.file = 'C:\\Users\\buchs\\OneDrive\\Documents\\Studies\\סדנה בבסיסי נתונים\\Speeches\\' + event.target.files[0].name;
+                                    newSpeech.file = folder + event.target.files[0].name;
                                     setNewSpeech(newSpeech);
                                 }} />
                         </Button>
-                        <p>* Files are Uploaded from 'C:\Users\buchs\OneDrive\Documents\Studies\סדנה בבסיסי נתונים\Speeches\'</p>
+                        <p>* Files are Uploaded from '{folder}'</p>
                     </Grid>
                 </Grid>
             </DialogContent>
