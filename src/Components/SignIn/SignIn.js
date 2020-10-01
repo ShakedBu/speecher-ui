@@ -40,57 +40,55 @@ export default function SignIn(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.login(userName, password);
+        return (<Redirect to="" />)
     }
 
     return (
-        getCurrentUser() ?
-            <Redirect to="" />
-            :
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
                 </Typography>
-                    <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="User Name"
-                            name="user name"
-                            autoComplete="user"
-                            autoFocus
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            autoComplete="current-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            Sign In
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="User Name"
+                        name="user name"
+                        autoComplete="user"
+                        autoFocus
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Sign In
                     </Button>
-                    </form>
-                </div>
-            </Container>
+                </form>
+            </div>
+        </Container>
     );
 }

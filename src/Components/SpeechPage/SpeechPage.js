@@ -13,7 +13,6 @@ import SpeechView from './SpeechView';
 import SpeechActionsTabs from './SpeechActions/SpeechActionsTabs';
 
 import { getSpeech } from '../../Utils/SpeechUtil';
-import { getCurrentUser } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -55,7 +54,7 @@ function SpeechPage(props) {
         setLoading(isLoading);
     }
 
-    if (speech == null) {
+    if (speech == null && props.isLogged) {
         getSpeech(speechId).then((response) => {
             setLoading(false);
             if (response.error) {
@@ -69,7 +68,7 @@ function SpeechPage(props) {
     }
 
     return (
-        !getCurrentUser() ?
+        !props.isLogged ?
             <Redirect to="/login" />
             :
             <>

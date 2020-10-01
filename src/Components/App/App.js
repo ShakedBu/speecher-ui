@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
@@ -10,13 +10,15 @@ import SignIn from '../SignIn/SignIn';
 import { login, logout } from '../../Utils/AuthUtils';
 
 function App() {
+  const [isLogged, setLogged] = useState(false);
 
   const logIn = (userName, password) => {
-    login(userName, password);
+    login(userName, password).then((response) => setLogged(true));
   }
 
   const logOut = () => {
     logout();
+    setLogged(false);
   }
 
   return (
@@ -29,10 +31,10 @@ function App() {
               <SignIn login={logIn} />
             </Route>
             <Route path="/speech/:id">
-              <SpeechPage />
+              <SpeechPage isLogged={isLogged} />
             </Route>
             <Route path="/">
-              <SearchPage />
+              <SearchPage isLogged={isLogged} />
             </Route>
           </Switch>
         </Router>

@@ -15,7 +15,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import NewSpeechPage from '../NewSpeechPage/NewSpeechPage';
 import { searchSpeeches } from '../../Utils/SpeechUtil';
-import { getCurrentUser } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,7 +83,7 @@ function SearchPage(props) {
     };
 
     return (
-        !getCurrentUser() ?
+        !props.isLogged ?
             <Redirect to="/login" />
             :
             <>
