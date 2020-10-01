@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { getCurrentUser } from '../../Utils/AuthUtils';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
