@@ -6,17 +6,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-//import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-//import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { createPhrase, getAllWords } from '../../Utils/WordUtils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 500,
+    minWidth: 400,
     '& > * + *': {
       marginTop: theme.spacing(3),
     },
