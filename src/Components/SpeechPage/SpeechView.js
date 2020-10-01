@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 function SpeechView(props) {
 
@@ -72,21 +73,27 @@ function SpeechView(props) {
     }
 
     return (
-        <>
-            <Typography variant="h2" component="h3">{props.speech?.name}</Typography>
-            <Typography variant="h5" component="h6">
-                {
-                    props.speech?.speaker + " | " +
-                    props.speech?.location + " | " +
-                    (!props.speech ? "" : format(new Date(props.speech.date), 'dd/MM/yyyy'))
-                }
-            </Typography>
-            <Paper key={props.marked} >
-                <Typography variant="body1">
-                    {buildSpeechText()}
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Typography variant="h2" component="h3">{props.speech?.name}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography variant="h5" component="h6">
+                    {
+                        props.speech?.speaker + " | " +
+                        props.speech?.location + " | " +
+                        (!props.speech ? "" : format(new Date(props.speech.date), 'dd/MM/yyyy'))
+                    }
                 </Typography>
-            </Paper>
-        </>
+            </Grid>
+            <Grid item xs={12}>
+                <Paper key={props.marked} >
+                    <Typography variant="body1">
+                        {buildSpeechText()}
+                    </Typography>
+                </Paper>
+            </Grid>
+        </Grid>
     );
 }
 
