@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const server = process.env.REACT_APP_SERVER || 'http://localhost:5000'
+
 export const login = (userName, password) => {
-    return (axios.post('http://localhost:5000/auth', {
+    return (axios.post(server + '/auth', {
         'username': userName,
         'password': password,
     })).then((response) => {

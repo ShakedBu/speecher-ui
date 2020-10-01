@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { authHeader } from '../Utils/AuthUtils';
 
+const server = process.env.REACT_APP_SERVER || 'http://localhost:5000'
+
 export const getGroups = (query) => {
-    return (axios.get('http://localhost:5000/group?query=' + query, {
+    return (axios.get(server + '/group?query=' + query, {
         headers: authHeader()
     }).then((result) =>
         result.status === 200 ? result.data : console.log(result)).catch((error) => null)
@@ -11,7 +13,7 @@ export const getGroups = (query) => {
 
 
 export const getGroup = (groupId) => {
-    return (axios.get('http://localhost:5000/group?id=' + groupId, {
+    return (axios.get(server + '/group?id=' + groupId, {
         headers: authHeader()
     }).then((result) =>
         result.status === 200 ? result.data : console.log(result)).catch((error) => null)
@@ -19,7 +21,7 @@ export const getGroup = (groupId) => {
 };
 
 export const createGroup = (groupName, words) => {
-    return (axios.post('http://localhost:5000/group', {
+    return (axios.post(server + '/group', {
         'name': groupName,
         'words': words
     }, {
@@ -29,7 +31,7 @@ export const createGroup = (groupName, words) => {
 };
 
 export const addWords2Group = (groupId, words) => {
-    return (axios.put('http://localhost:5000/group', {
+    return (axios.put(server + '/group', {
         'action': 'add',
         'id': groupId,
         'words': words
@@ -40,7 +42,7 @@ export const addWords2Group = (groupId, words) => {
 };
 
 export const removeWordsFromGroup = (groupId, words) => {
-    return (axios.put('http://localhost:5000/group', {
+    return (axios.put(server + '/group', {
         'action': 'remove',
         'id': groupId,
         'words': words

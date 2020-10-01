@@ -1,15 +1,17 @@
 import axios from 'axios';
 import { authHeader } from '../Utils/AuthUtils';
 
+const server = process.env.REACT_APP_SERVER || 'http://localhost:5000'
+
 export const getAllWords = () => {
-    return (axios.get('http://localhost:5000/word', {
+    return (axios.get(server + '/word', {
         headers: authHeader()
     }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
 }
 
 export const createPhrase = (words) => {
-    return (axios.post('http://localhost:5000/phrase', {
+    return (axios.post(server + '/phrase', {
         'words': words,
     }, {
         headers: authHeader()
@@ -18,7 +20,7 @@ export const createPhrase = (words) => {
 };
 
 export const getAllPhrases = () => {
-    return (axios.get('http://localhost:5000/phrase', {
+    return (axios.get(server + '/phrase', {
         headers: authHeader()
     }).then((result) => result.status === 200 ? result.data : console.log(result)).catch((error) => null)
     );
