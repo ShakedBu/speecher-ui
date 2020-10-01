@@ -10,7 +10,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -32,10 +31,6 @@ const useStyles = makeStyles((theme) => ({
     },
     iconButton: {
         padding: 10,
-    },
-    divider: {
-        height: 28,
-        margin: 4,
     },
 }));
 
@@ -84,70 +79,74 @@ function SearchPhrase(props) {
             hidden={props.value !== props.index}
             id={`simple-tabpanel-${props.index}`}
             aria-labelledby={`simple-tab-${props.index}`}>
-            <Paper className={classes.root} elevation={3}>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item spacing={2}>
-                            <Autocomplete
-                                options={phrases}
-                                getOptionLabel={(option) => option.text}
-                                style={{ width: 300 }}
-                                onChange={(event, newValue) => {
-                                    setSelectePhrase(newValue);
-                                }}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        label="Search Phrase"
-                                        type="search"
-                                        required
-                                    />}
-                            />
-                        </Grid>
-                        <Grid item spacing={2}>
-                            <Button disabled={!selectedPhrase} type="search" className={classes.iconButton} aria-label="search">
-                                <SearchIcon />
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
-            </Paper>
-            <Divider variant="middle" />
-            {results ?
-                <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
-                    <List subheader={<ListSubheader>{results.length} results</ListSubheader>} >
-                        {results?.map((x, idx) =>
-                            <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
-                                <ListItemText
-                                    primary={
-                                        <Typography variant='overline'>
-                                            {'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
-                                        </Typography>}
-                                    secondary={
-                                        <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
-                                            <Typography variant='body2'>
-                                                {(() => {
-                                                    // Bold the searched word in the returned text
-                                                    let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
-                                                    let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Paper className={classes.root} elevation={3}>
+                        <form onSubmit={handleSubmit}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={10}>
+                                    <Autocomplete
+                                        options={phrases}
+                                        getOptionLabel={(option) => option.text}
+                                        onChange={(event, newValue) => {
+                                            setSelectePhrase(newValue);
+                                        }}
+                                        renderInput={(params) =>
+                                            <TextField {...params}
+                                                label="Search Phrase"
+                                                type="search"
+                                                required
+                                            />}
+                                    />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Button disabled={!selectedPhrase} type="search" className={classes.iconButton} aria-label="search">
+                                        <SearchIcon />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    {results ?
+                        <Paper style={{ maxHeight: 680, overflow: 'auto' }} elevation={3}>
+                            <List subheader={<ListSubheader>{results.length} results</ListSubheader>} >
+                                {results?.map((x, idx) =>
+                                    <ListItem key={idx} onClick={(event) => { navigateToWord(idx) }}>
+                                        <ListItemText
+                                            primary={
+                                                <Typography variant='overline'>
+                                                    {'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
+                                                </Typography>}
+                                            secondary={
+                                                <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
+                                                    <Typography variant='body2'>
+                                                        {(() => {
+                                                            // Bold the searched word in the returned text
+                                                            let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
+                                                            let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
 
-                                                    return (text.map((x, indx) => indx !== text.length - 1 ?
-                                                        <React.Fragment key={indx} >
-                                                            <span>{x}</span>
-                                                            <b>{originalWords[indx]}</b>
-                                                        </React.Fragment>
-                                                        :
-                                                        <span key={indx} >{x}</span>))
-                                                })()}
-                                            </Typography>
-                                        </a>
-                                    } />
-                            </ListItem>)
-                        }
-                    </List>
-                </Paper>
-                :
-                <></>
-            }
+                                                            return (text.map((x, indx) => indx !== text.length - 1 ?
+                                                                <React.Fragment key={indx} >
+                                                                    <span>{x}</span>
+                                                                    <b>{originalWords[indx]}</b>
+                                                                </React.Fragment>
+                                                                :
+                                                                <span key={indx} >{x}</span>))
+                                                        })()}
+                                                    </Typography>
+                                                </a>
+                                            } />
+                                    </ListItem>)
+                                }
+                            </List>
+                        </Paper>
+                        :
+                        <></>
+                    }
+                </Grid>
+            </Grid>
         </div>
     )
 }
