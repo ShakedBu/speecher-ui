@@ -59,9 +59,9 @@ function SearchWord(props) {
                 }
                 else {
                     setResults(response);
-                    props.setSearchedWord(query);
                 }
-            })
+            });
+            props.setSearchedWord(word);
         }
     }
 

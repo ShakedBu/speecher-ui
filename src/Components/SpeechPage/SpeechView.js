@@ -88,9 +88,9 @@ function SpeechView(props) {
             </Grid>
             <Grid item xs={12}>
                 <Paper key={props.marked} style={{ maxHeight: 675, overflow: 'auto' }}>
-                    <Typography variant="body1">
-                        {buildSpeechText()}
-                    </Typography>
+                    {/* <Typography variant="body1"> */}
+                    {buildSpeechText()}
+                    {/* </Typography> */}
                 </Paper>
             </Grid>
         </Grid>
