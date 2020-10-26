@@ -48,19 +48,25 @@ function SearchPhrase(props) {
     };
 
     const findPhrase = () => {
-        props.setLoading(true);
-        searchPhrase(props.speechId, selectedPhrase.id).then((response) => {
-            props.setLoading(false);
-            if (response?.error) {
-                enqueueSnackbar(response.error.data?.message, {
-                    variant: 'error',
-                });
-                setResults(null);
-            }
-            else
-                setResults(response)
-        });
-        props.setSearchedWord(selectedPhrase.text);
+        if (selectedPhrase == null) {
+            props.setSearchedWord(null);
+            setResults(null);
+        }
+        else {
+            props.setLoading(true);
+            searchPhrase(props.speechId, selectedPhrase.id).then((response) => {
+                props.setLoading(false);
+                if (response?.error) {
+                    enqueueSnackbar(response.error.data?.message, {
+                        variant: 'error',
+                    });
+                    setResults(null);
+                }
+                else
+                    setResults(response)
+            });
+            props.setSearchedWord(selectedPhrase.text);
+        }
     }
 
     const loadPhrases = () => {
@@ -90,6 +96,7 @@ function SearchPhrase(props) {
                                         getOptionLabel={(option) => option.text}
                                         onChange={(event, newValue) => {
                                             setSelectePhrase(newValue);
+                                            if (newValue == null) { setResults(null); }
                                         }}
                                         renderInput={(params) =>
                                             <TextField {...params}
@@ -120,12 +127,12 @@ function SearchPhrase(props) {
                                                     {'paragraph: ' + x.paragraph + ' | sentence: ' + x.sentence + ' | index:' + x.index}
                                                 </Typography>}
                                             secondary={
-                                                <a href={'#' + selectedPhrase.text.replaceAll(' ', '_') + idx}>
+                                                <a href={'#' + selectedPhrase?.text.replaceAll(' ', '_') + idx}>
                                                     <Typography variant='body2'>
                                                         {(() => {
                                                             // Bold the searched word in the returned text
-                                                            let originalWords = x.some_sentence.match(new RegExp(selectedPhrase.text, 'ig'));
-                                                            let text = x.some_sentence.split(new RegExp(selectedPhrase.text, 'i'));
+                                                            let originalWords = x.some_sentence.match(new RegExp(selectedPhrase?.text, 'ig'));
+                                                            let text = x.some_sentence.split(new RegExp(selectedPhrase?.text, 'i'));
 
                                                             return (text.map((x, indx) => indx !== text.length - 1 ?
                                                                 <React.Fragment key={indx} >
